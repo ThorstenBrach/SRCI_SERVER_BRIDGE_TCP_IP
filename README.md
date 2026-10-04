@@ -81,8 +81,10 @@ Libraries: Tc2_Standard, Tc2_System, Tc2_TcpIp (the SRCI RobotLibrary is not nee
 
 1. Create a standard project for your controller (e.g. CODESYS Control Win / RTE / for Linux, a
    PLC with CODESYS runtime).
-2. **Import:** select the Application, then *Project → Import PLCopenXML…* →
-   `Codesys/SRCI_TcpIp_Bridge.xml` (imports `FB_SrciTcpIpBridge`, `GVL_Bridge`, `PLC_PRG`).
+2. **Import:** select the project (top node), then *Project → Import PLCopenXML…* →
+   `Codesys/SRCI_TcpIp_Bridge.xml`. The dialog shows the Application with `PLC_PRG`, `GVL_Bridge`
+   and the folder `Bridge` (`FB_SrciTcpIpBridge` with its method `FB_exit`); confirm to replace
+   the existing `PLC_PRG`.
 3. **Libraries:** add **SysSocket** in the library manager (`SysSocket Implementation`, CODESYS).
    Standard (for `LEN`, `TON`) is part of every project.
 4. **Task:** call `PLC_PRG` in a cyclic task (e.g. 2 to 10 ms) – the same task that is the bus

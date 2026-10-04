@@ -2,9 +2,11 @@
 
     python st_to_plcopen.py            -> SRCI_TcpIp_Bridge.xml (next to this script)
 
-CODESYS: Project -> Import PLCopenXML... The XML holds every POU twice: as structured PLCopen
-interface and as declaration text (``InterfaceAsPlainText``, like a CODESYS export). Only the small
-subset of ST declarations used in ``Source/`` is supported (one variable per line, ``///`` docs).
+CODESYS: select the project, Project -> Import PLCopenXML... The file has the form of a PLCopen export
+of CODESYS V3.5 SP22: the objects lie in the Application (GVL, PLC_PRG, folder "Bridge" with the FB and
+its method), the declarations are the structured PLCopen interface with the ``///`` comments as
+documentation. Only the small subset of ST declarations used in ``Source/`` is supported (one
+variable per line).
 The object IDs are derived from the names, so the file only changes when the sources change.
 """
 
@@ -59,17 +61,23 @@ def type_xml(text: str) -> str:
     raise ValueError(f"type {t!r} not supported")
 
 
-def variable_xml(name: str, type_text: str, init: str | None, doc: str) -> str:
+def is_vla(type_text: str) -> bool:
+    return bool(re.fullmatch(r"(?i)ARRAY\s*\[\s*\*\s*\]\s*OF\s+.+", type_text.strip()))
+
+
+def variable_xml(name: str, type_text: str, init: str | None, doc: str, scope: str = "") -> str:
     parts = [f'<variable name="{name}">', "  <type>", indent(type_xml(type_text), "    "), "  </type>"]
     if init is not None:
         parts += ["  <initialValue>", f'    <simpleValue value="{escape(init, {chr(34): "&quot;"})}" />',
                   "  </initialValue>"]  # fmt: skip
-    if re.fullmatch(r"(?i)ARRAY\s*\[\s*\*\s*\]\s*OF\s+.+", type_text.strip()):
+    if is_vla(type_text):
+        vla = re.sub(r"\s+", " ", type_text.strip()).upper().replace("[ * ]", "[*]")
         parts += [
             "  <addData>",
             f'    <data name="{NS}attributes" handleUnknown="implementation">',
             "      <Attributes>",
-            '        <Attribute Name="variable_length_array" />',
+            *([f'        <Attribute Name="variable_length_array_original_scope" Value="{scope}" />'] if scope else []),
+            f'        <Attribute Name="variable_length_array" Value="{escape(vla)}" />',
             '        <Attribute Name="Dimensions" Value="1" />',
             "      </Attributes>",
             "    </data>",
@@ -82,8 +90,8 @@ def variable_xml(name: str, type_text: str, init: str | None, doc: str) -> str:
 
 
 def sections_xml(declaration: str) -> list[str]:
-    """``<inputVars>`` ... blocks of a declaration text. Like the PLCopen export of TwinCAT/CODESYS,
-    variable length arrays of ``VAR_IN_OUT`` are written as pointers in ``<inputVars>``."""
+    """``<inputVars>`` ... blocks of a declaration text. Like the PLCopen export of CODESYS, variable
+    length arrays of ``VAR_IN_OUT`` are pointers in ``<inputVars>`` (original scope "Inout")."""
     out: list[str] = []
     moved: list[str] = []
     section: str | None = None
@@ -106,11 +114,10 @@ def sections_xml(declaration: str) -> list[str]:
         elif s.startswith("///"):
             doc.append(s[3:].strip())
         elif section is not None and (m := DECL.match(s)):
-            xml = variable_xml(m.group(1), m.group(2), m.group(3), " ".join(doc))
-            if section == "inOutVars" and re.fullmatch(r"(?i)ARRAY\s*\[\s*\*\s*\]\s*OF\s+.+", m.group(2)):
-                moved.append(xml)
+            if section == "inOutVars" and is_vla(m.group(2)):
+                moved.append(variable_xml(m.group(1), m.group(2), m.group(3), " ".join(doc), "Inout"))
             else:
-                variables.append(xml)
+                variables.append(variable_xml(m.group(1), m.group(2), m.group(3), " ".join(doc)))
             doc = []
         elif section is not None:
             raise ValueError(f"declaration line {s!r} not supported")
@@ -122,11 +129,6 @@ def sections_xml(declaration: str) -> list[str]:
         else:
             out.insert(0, f"<inputVars>\n{indent(chr(10).join(moved), '  ')}\n</inputVars>")
     return out
-
-
-def plain_xml(text: str) -> str:
-    return (f'<data name="{NS}interfaceasplaintext" handleUnknown="implementation">\n  <InterfaceAsPlainText>\n'
-            f"    {XHTML}{escape(text)}</xhtml>\n  </InterfaceAsPlainText>\n</data>")  # fmt: skip
 
 
 def split_pou(text: str) -> tuple[str, str, str, str, list[tuple[str, str, str, str]]]:
@@ -143,10 +145,10 @@ def split_pou(text: str) -> tuple[str, str, str, str, list[tuple[str, str, str, 
         inner = f"{m.group(1)}METHOD {m.group(2)} : {m.group(3)}{m.group(4)}"
         mv = list(re.finditer(r"^END_VAR\s*$", inner, flags=re.M))[-1]
         methods.append((m.group(2), m.group(3), inner[: mv.end()], inner[mv.end() :]))
-    return head.group(1), head.group(2), declaration, dedent_body(body), methods
+    return head.group(1), head.group(2), declaration, strip_body(body), methods
 
 
-def dedent_body(body: str) -> str:
+def strip_body(body: str) -> str:
     """Body text without the empty lines around it (indentation kept, like the export)."""
     lines = body.strip("\n").split("\n")
     while lines and not lines[-1].strip():
@@ -154,37 +156,52 @@ def dedent_body(body: str) -> str:
     return "\n".join(lines)
 
 
-def doc_of(declaration: str) -> str:
-    m = re.match(r"\s*///\s*(.*)", declaration)
-    return m.group(1) if m else ""
+def documentation(declaration: str) -> str:
+    """``///`` line above the header and the header comment (``// ...``) of a declaration."""
+    lines = []
+    for line in declaration.splitlines():
+        s = line.strip()
+        if s.startswith("///"):
+            lines.append(s[3:].strip())
+        elif s.startswith("//"):
+            lines.append(s[2:].rstrip())
+        elif re.match(r"(?i)VAR", s):
+            break
+    return "\n".join(lines).strip("\n")
 
 
-def pou_xml(path: Path) -> str:
+def doc_xml(text: str) -> str:
+    return f"<documentation>\n  {XHTML}{escape(text)}</xhtml>\n</documentation>" if text else ""
+
+
+def pou_xml(path: Path) -> tuple[str, str, list[str]]:
+    """(name, ``<pou>`` element, names of the methods)."""
     kind, name, declaration, body, methods = split_pou(path.read_text(encoding="utf-8"))
     pou_type = "functionBlock" if kind == "FUNCTION_BLOCK" else "program"
-    interface = "\n".join(sections_xml(declaration))
-    doc = doc_of(declaration)
-    if doc:
-        interface += f"\n<documentation>\n  {XHTML} {escape(doc)}</xhtml>\n</documentation>"
+    interface = "\n".join(x for x in [*sections_xml(declaration), doc_xml(documentation(declaration))] if x)
     add = []
     for m_name, m_return, m_decl, m_body in methods:
-        m_itf = "\n".join([f"<returnType>\n  {type_xml(m_return)}\n</returnType>", *sections_xml(m_decl)])
+        m_itf = "\n".join(
+            x
+            for x in [f"<returnType>\n  {type_xml(m_return)}\n</returnType>", *sections_xml(m_decl),
+                      doc_xml(documentation(m_decl))]
+            if x
+        )  # fmt: skip
         method = (
             f'<Method name="{m_name}" ObjectId="{object_id(name + "." + m_name)}">\n'
             f"  <interface>\n{indent(m_itf, '    ')}\n  </interface>\n"
-            f"  <body>\n    <ST>\n      {XHTML}{escape(dedent_body(m_body))}</xhtml>\n    </ST>\n  </body>\n"
-            f"  <InterfaceAsPlainText>\n    {XHTML}{escape(m_decl.strip())}</xhtml>\n  </InterfaceAsPlainText>\n"
+            f"  <body>\n    <ST>\n      {XHTML}{escape(strip_body(m_body))}</xhtml>\n    </ST>\n  </body>\n"
             "  <addData />\n</Method>"
         )
         add.append(f'<data name="{NS}method" handleUnknown="implementation">\n{indent(method, "  ")}\n</data>')
-    add.append(plain_xml(declaration.strip()))
     add.append(f'<data name="{NS}objectid" handleUnknown="discard">\n  <ObjectId>{object_id(name)}</ObjectId>\n</data>')
-    return (
+    xml = (
         f'<pou name="{name}" pouType="{pou_type}">\n'
         f"  <interface>\n{indent(interface, '    ')}\n  </interface>\n"
         f"  <body>\n    <ST>\n      {XHTML}{escape(body)}</xhtml>\n    </ST>\n  </body>\n"
         f"  <addData>\n{indent(chr(10).join(add), '    ')}\n  </addData>\n</pou>"
     )
+    return name, xml, [m[0] for m in methods]
 
 
 def gvl_xml(path: Path) -> str:
@@ -198,48 +215,67 @@ def gvl_xml(path: Path) -> str:
         items = "\n".join(f'      <Attribute Name="{a}" Value="" />' for a in attrs)
         add.append(f'<data name="{NS}attributes" handleUnknown="implementation">\n'
                    f"  <Attributes>\n{items}\n  </Attributes>\n</data>")  # fmt: skip
-    add.append(f'<data name="{NS}buildproperties" handleUnknown="implementation">\n'
-               "  <BuildProperties>\n    <LinkAlways>true</LinkAlways>\n  </BuildProperties>\n</data>")  # fmt: skip
-    add.append(plain_xml(text.strip()))
     add.append(f'<data name="{NS}objectid" handleUnknown="discard">\n  <ObjectId>{object_id(name)}</ObjectId>\n</data>')
-    header = "\n".join(line.strip()[2:] for line in text.splitlines() if line.strip().startswith("//"))
     return (f'<globalVars name="{name}">\n{inner}\n  <addData>\n{indent(chr(10).join(add), "    ")}\n'
-            f"  </addData>\n  <documentation>\n    {XHTML}{escape(header)}</xhtml>\n  </documentation>\n"
-            "</globalVars>")  # fmt: skip
+            f"  </addData>\n{indent(doc_xml(documentation(text)), '  ')}\n</globalVars>")  # fmt: skip
 
 
 def project_xml() -> str:
+    """The objects in the Application, as in a PLCopen export of CODESYS (V3.5 SP22): global
+    variable lists directly in ``<resource name="Application">``, POUs in its ``addData``."""
     pou_files = [p for p in sorted(SOURCE.glob("*.st")) if not p.stem.startswith("GVL_")]
     gvl_files = sorted(SOURCE.glob("GVL_*.st"))
     pous = [pou_xml(p) for p in pou_files]
     gvls = [gvl_xml(p) for p in gvl_files]
-    # project tree: PLC_PRG at the top, the bridge (FB + GVL) in the folder "Bridge"
-    tree = [f'<Object Name="{p.stem}" ObjectId="{object_id(p.stem)}" />' for p in pou_files if p.stem == "PLC_PRG"]
-    folder = [f'  <Object Name="{p.stem}" ObjectId="{object_id(p.stem)}" />'
-              for p in [*pou_files, *gvl_files] if p.stem != "PLC_PRG"]  # fmt: skip
-    tree += ['<Folder Name="Bridge">', *folder, "</Folder>"]
+    pou_data = "\n".join(
+        f'<data name="{NS}pou" handleUnknown="implementation">\n{indent(xml, "  ")}\n</data>' for _, xml, _ in pous
+    )
+    application = (
+        '<resource name="Application">\n'
+        + indent("\n".join(gvls), "  ")
+        + f"\n  <addData>\n{indent(pou_data, '    ')}\n"
+        + f'    <data name="{NS}objectid" handleUnknown="discard">\n'
+        + f"      <ObjectId>{object_id('Application')}</ObjectId>\n    </data>\n  </addData>\n</resource>"
+    )
+
+    # project tree: PLC_PRG and the GVL in the Application, the bridge FB (with its methods) in "Bridge"
+    def obj(name: str, methods: list[str]) -> list[str]:
+        if not methods:
+            return [f'<Object Name="{name}" ObjectId="{object_id(name)}" />']
+        children = [f'  <Object Name="{m}" ObjectId="{object_id(name + "." + m)}" />' for m in methods]
+        return [f'<Object Name="{name}" ObjectId="{object_id(name)}">', *children, "</Object>"]
+
+    tree: list[str] = []
+    for name, _, methods in pous:
+        if name == "PLC_PRG":
+            tree += obj(name, methods)
+    tree += [f'<Object Name="{p.stem}" ObjectId="{object_id(p.stem)}" />' for p in gvl_files]
+    tree.append('<Folder Name="Bridge">')
+    for name, _, methods in pous:
+        if name != "PLC_PRG":
+            tree += [f"  {line}" for line in obj(name, methods)]
+    tree.append("</Folder>")
+    structure = [f'<Object Name="Application" ObjectId="{object_id("Application")}">', *[f"  {t}" for t in tree],
+                 "</Object>"]  # fmt: skip
     now = STAMP
     return (
         '<?xml version="1.0" encoding="utf-8"?>\n'
         '<project xmlns="http://www.plcopen.org/xml/tc6_0200">\n'
-        f'  <fileHeader companyName="Thorsten Brach" productName="CODESYS" productVersion="3.5" creationDateTime="{now}" />\n'
-        f'  <contentHeader name="SRCI_TcpIp_Bridge" modificationDateTime="{now}">\n'
+        f'  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP22 Patch 2" creationDateTime="{now}" />\n'
+        f'  <contentHeader name="SRCI_TcpIp_Bridge.project" modificationDateTime="{now}">\n'
         "    <coordinateInfo>\n"
-        '      <fbd><scaling x="1" y="1" /></fbd>\n      <ld><scaling x="1" y="1" /></ld>\n'
-        '      <sfc><scaling x="1" y="1" /></sfc>\n'
+        '      <fbd>\n        <scaling x="1" y="1" />\n      </fbd>\n'
+        '      <ld>\n        <scaling x="1" y="1" />\n      </ld>\n'
+        '      <sfc>\n        <scaling x="1" y="1" />\n      </sfc>\n'
         "    </coordinateInfo>\n"
         f'    <addData>\n      <data name="{NS}projectinformation" handleUnknown="implementation">\n'
         "        <ProjectInformation />\n      </data>\n    </addData>\n  </contentHeader>\n"
-        "  <types>\n    <dataTypes />\n"
-        f"    <pous>\n{indent(chr(10).join(pous), '      ')}\n    </pous>\n  </types>\n"
+        "  <types>\n    <dataTypes />\n    <pous />\n  </types>\n"
         "  <instances>\n    <configurations />\n  </instances>\n"
         "  <addData>\n"
-        + "\n".join(
-            f'    <data name="{NS}globalvars" handleUnknown="implementation">\n{indent(g, "      ")}\n    </data>'
-            for g in gvls
-        )
-        + f'\n    <data name="{NS}projectstructure" handleUnknown="discard">\n      <ProjectStructure>\n'
-        + indent("\n".join(tree), "        ")
+        f'    <data name="{NS}application" handleUnknown="implementation">\n{indent(application, "      ")}\n    </data>\n'
+        f'    <data name="{NS}projectstructure" handleUnknown="discard">\n      <ProjectStructure>\n'
+        + indent("\n".join(structure), "        ")
         + "\n      </ProjectStructure>\n    </data>\n  </addData>\n</project>\n"
     )
 
