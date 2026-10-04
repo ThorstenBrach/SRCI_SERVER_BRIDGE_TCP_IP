@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
   <fileHeader companyName="Thorsten Brach" productName="CODESYS" productVersion="3.5" creationDateTime="2026-10-04T00:00:00" />
   <contentHeader name="SRCI_TcpIp_Bridge" modificationDateTime="2026-10-04T00:00:00">
@@ -7,6 +7,11 @@
       <ld><scaling x="1" y="1" /></ld>
       <sfc><scaling x="1" y="1" /></sfc>
     </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
   </contentHeader>
   <types>
     <dataTypes />
@@ -88,8 +93,6 @@
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> Wait time before a new attempt after an error of the server (create/bind/listen/accept)</xhtml>
               </documentation>
             </variable>
-          </inputVars>
-          <inOutVars>
             <variable name="RobotOutData">
               <type>
                 <pointer>
@@ -130,7 +133,7 @@
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> PROFINET inputs of the robot: telegram RC -&gt; PLC</xhtml>
               </documentation>
             </variable>
-          </inOutVars>
+          </inputVars>
           <outputVars>
             <variable name="Listening">
               <type>
@@ -440,325 +443,325 @@
         </interface>
         <body>
           <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml">NewTelegram := FALSE;
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">  NewTelegram := FALSE;
 
-      // disabled -&gt; close the client (if connected), then the listener
-      IF ( NOT Enable )
-      THEN
-        IF (( _step &gt;= 25 ) AND
-            ( _step &lt;  70 ))
+        // disabled -&gt; close the client (if connected), then the listener
+        IF ( NOT Enable )
         THEN
-          _shutdown := TRUE;
-          _step     := 70;
-        ELSIF ( _step = 20 )
-        THEN
-          _step := 80;
+          IF (( _step &gt;= 25 ) AND
+              ( _step &lt;  70 ))
+          THEN
+            _shutdown := TRUE;
+            _step     := 70;
+          ELSIF ( _step = 20 )
+          THEN
+            _step := 80;
+          END_IF
         END_IF
-      END_IF
 
-      // several steps in one call (e.g. request complete -&gt; send the answer at once)
-      FOR _loop := 1 TO 4
-      DO
-        CASE _step OF
+        // several steps in one call (e.g. request complete -&gt; send the answer at once)
+        FOR _loop := 1 TO 4
+        DO
+          CASE _step OF
 
-          0: // idle - start the server ?
-             // the telegram buffers must hold the telegram lengths
-             IF (( DINT_TO_UDINT(UPPER_BOUND(RobotOutData, 1) - LOWER_BOUND(RobotOutData, 1) + 1) &lt; LengthPlcToRob ) OR
-                 ( DINT_TO_UDINT(UPPER_BOUND(RobotInData,  1) - LOWER_BOUND(RobotInData,  1) + 1) &lt; LengthRobToPlc ) OR
-                 ( LengthPlcToRob &gt; SIZEOF(_rxBuffer)                                                            ) OR
-                 ( LengthRobToPlc &gt; SIZEOF(_txBuffer)                                                            ) OR
-                 ( LengthPlcToRob = 0                                                                            ) OR
-                 ( LengthRobToPlc = 0                                                                            ))
-             THEN
-               ErrorID   := 16#FFFD;
-               ErrorStep := _step;
-               Error     := TRUE;
-               EXIT;
-             END_IF
-             IF ( NOT Enable )
-             THEN
-               EXIT;
-             END_IF
-             _step := 10;
+            0: // idle - start the server ?
+               // the telegram buffers must hold the telegram lengths
+               IF (( DINT_TO_UDINT(UPPER_BOUND(RobotOutData, 1) - LOWER_BOUND(RobotOutData, 1) + 1) &lt; LengthPlcToRob ) OR
+                   ( DINT_TO_UDINT(UPPER_BOUND(RobotInData,  1) - LOWER_BOUND(RobotInData,  1) + 1) &lt; LengthRobToPlc ) OR
+                   ( LengthPlcToRob &gt; SIZEOF(_rxBuffer)                                                            ) OR
+                   ( LengthRobToPlc &gt; SIZEOF(_txBuffer)                                                            ) OR
+                   ( LengthPlcToRob = 0                                                                            ) OR
+                   ( LengthRobToPlc = 0                                                                            ))
+               THEN
+                 ErrorID   := 16#FFFD;
+                 ErrorStep := _step;
+                 Error     := TRUE;
+                 EXIT;
+               END_IF
+               IF ( NOT Enable )
+               THEN
+                 EXIT;
+               END_IF
+               _step := 10;
 
-          10: // open the server port: create, reuse the address, non-blocking, bind, listen
-              _listener := SysSockCreate( iAddressFamily := SOCKET_AF_INET,
-                                          diType         := SOCKET_STREAM,
-                                          diProtocol     := SOCKET_IPPROTO_TCP,
-                                          pResult        := ADR(_result) );
-              IF ( _listener = RTS_INVALID_HANDLE )
-              THEN
-                ErrorID   := _result;
-                ErrorStep := _step;
-                Error     := TRUE;
-                _step     := 90;
-                EXIT;
-              END_IF
-              // the port can be opened again at once after a restart of the PLC program
-              _value  := 1;
-              _result := SysSockSetOption( hSocket        := _listener,
-                                           diLevel        := SOCKET_SOL,
-                                           diOption       := SOCKET_SO_REUSEADDR,
-                                           pdiOptionValue := ADR(_value),
-                                           diOptionLen    := SIZEOF(_value) );
-              _value  := 1;
-              _result := SysSockIoctl( hSocket      := _listener,
-                                       diCommand    := SOCKET_FIONBIO,
-                                       pdiParameter := ADR(_value) );
-              IF ( _result = RESULT_OK )
-              THEN
-                _address.sin_family := SOCKET_AF_INET;
-                _address.sin_port   := SysSockHtons(LocalPort);
-                IF ( LEN(LocalHost) = 0 )
+            10: // open the server port: create, reuse the address, non-blocking, bind, listen
+                _listener := SysSockCreate( iAddressFamily := SOCKET_AF_INET,
+                                            diType         := SOCKET_STREAM,
+                                            diProtocol     := SOCKET_IPPROTO_TCP,
+                                            pResult        := ADR(_result) );
+                IF ( _listener = RTS_INVALID_HANDLE )
                 THEN
-                  _address.sin_addr.ulAddr := SOCKET_INADDR_ANY;
-                ELSE
-                  _host   := LocalHost;
-                  _result := SysSockInetAddr( szIPAddress := _host,
-                                              pInAddr     := ADR(_address.sin_addr.ulAddr) );
-                END_IF
-              END_IF
-              IF ( _result = RESULT_OK )
-              THEN
-                _result := SysSockBind( hSocket        := _listener,
-                                        pSockAddr      := ADR(_address),
-                                        diSockAddrSize := SIZEOF(_address) );
-              END_IF
-              IF ( _result = RESULT_OK )
-              THEN
-                _result := SysSockListen( hSocket          := _listener,
-                                          diMaxConnections := 1 );
-              END_IF
-              IF ( _result &lt;&gt; RESULT_OK )
-              THEN
-                ErrorID   := _result;
-                ErrorStep := _step;
-                Error     := TRUE;
-                SysSockClose(hSocket := _listener);
-                _listener := RTS_INVALID_HANDLE;
-                _step     := 90;
-                EXIT;
-              END_IF
-              _step := 20;
-
-          20: // wait for a client (poll, non-blocking)
-              _addressSize := SIZEOF(_clientAddress);
-              _newSocket   := SysSockAccept( hSocket         := _listener,
-                                             pSockAddr       := ADR(_clientAddress),
-                                             pdiSockAddrSize := ADR(_addressSize),
-                                             pResult         := ADR(_result) );
-              IF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
-              THEN
-                _socket    := _newSocket;
-                _newSocket := RTS_INVALID_HANDLE;
-                _step      := 25;
-              ELSIF (( _result &lt;&gt; RESULT_OK         ) AND
-                     ( _result &lt;&gt; RESULT_WOULDBLOCK ))
-              THEN
-                ErrorID   := _result;
-                ErrorStep := _step;
-                Error     := TRUE;
-                _step     := 80;
-              ELSE
-                // no client yet
-                EXIT;
-              END_IF
-
-          25: // new connection: non-blocking, no Nagle delay (one small telegram per cycle)
-              _value  := 1;
-              _result := SysSockIoctl( hSocket      := _socket,
-                                       diCommand    := SOCKET_FIONBIO,
-                                       pdiParameter := ADR(_value) );
-              _value  := 1;
-              SysSockSetOption( hSocket        := _socket,
-                                diLevel        := SOCKET_IPPROTO_TCP,
-                                diOption       := SOCKET_TCP_NODELAY,
-                                pdiOptionValue := ADR(_value),
-                                diOptionLen    := SIZEOF(_value) );
-              IF ( _result &lt;&gt; RESULT_OK )
-              THEN
-                ErrorID   := _result;
-                ErrorStep := _step;
-                Error     := TRUE;
-                _step     := 70;
-              ELSE
-                Error        := FALSE;
-                ErrorID      := 0;
-                ErrorStep    := 0;
-                Connections  := Connections + 1;
-                MaxInterval  := T#0S;
-                Interval     := T#0S;
-                _lastRequest := TIME();
-                _rxCount     := 0;
-                _step        := 30;
-              END_IF
-
-          30: // a new client replaces the connected one (e.g. Python reconnects after a timeout,
-              // or the old connection is half open after a cable break)
-              _addressSize := SIZEOF(_clientAddress);
-              _newSocket   := SysSockAccept( hSocket         := _listener,
-                                             pSockAddr       := ADR(_clientAddress),
-                                             pdiSockAddrSize := ADR(_addressSize),
-                                             pResult         := ADR(_result) );
-              IF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
-              THEN
-                _step := 70;
-              ELSE
-                _step := 31;
-              END_IF
-
-          31: // receive the request (possibly in several parts)
-              _length := UDINT_TO_DINT(LengthPlcToRob - _rxCount);
-              _count  := SysSockRecv( hSocket      := _socket,
-                                      pbyBuffer    := ADR(_rxBuffer[_rxCount]),
-                                      diBufferSize := _length,
-                                      diFlags      := 0,
-                                      pResult      := ADR(_result) );
-              IF ( _count &gt; 0 )
-              THEN
-                _rxCount := _rxCount + TO_UDINT(_count);
-                IF ( _rxCount &lt; LengthPlcToRob )
-                THEN
-                  // rest of the request in the next cycle
-                  _step := 30;
+                  ErrorID   := _result;
+                  ErrorStep := _step;
+                  Error     := TRUE;
+                  _step     := 90;
                   EXIT;
                 END_IF
-                // complete request -&gt; PROFINET outputs
-                FOR _idx := 0 TO LengthPlcToRob - 1
-                DO
-                  RobotOutData[LOWER_BOUND(RobotOutData, 1) + UDINT_TO_DINT(_idx)] := _rxBuffer[_idx];
-                END_FOR
-                NewTelegram  := TRUE;
-                Telegrams    := Telegrams + 1;
-                Interval     := TIME() - _lastRequest;
-                _lastRequest := TIME();
-                IF ( Interval &gt; MaxInterval )
+                // the port can be opened again at once after a restart of the PLC program
+                _value  := 1;
+                _result := SysSockSetOption( hSocket        := _listener,
+                                             diLevel        := SOCKET_SOL,
+                                             diOption       := SOCKET_SO_REUSEADDR,
+                                             pdiOptionValue := ADR(_value),
+                                             diOptionLen    := SIZEOF(_value) );
+                _value  := 1;
+                _result := SysSockIoctl( hSocket      := _listener,
+                                         diCommand    := SOCKET_FIONBIO,
+                                         pdiParameter := ADR(_value) );
+                IF ( _result = RESULT_OK )
                 THEN
-                  MaxInterval := Interval;
+                  _address.sin_family := SOCKET_AF_INET;
+                  _address.sin_port   := SysSockHtons(LocalPort);
+                  IF ( LEN(LocalHost) = 0 )
+                  THEN
+                    _address.sin_addr.ulAddr := SOCKET_INADDR_ANY;
+                  ELSE
+                    _host   := LocalHost;
+                    _result := SysSockInetAddr( szIPAddress := _host,
+                                                pInAddr     := ADR(_address.sin_addr.ulAddr) );
+                  END_IF
                 END_IF
-                _rxCount    := 0;
-                _delayCount := 0;
-                _step       := 35;
-              ELSIF ( _result = RESULT_WOULDBLOCK )
-              THEN
-                // nothing received yet -&gt; poll again in the next cycle
-                _step := 30;
-                EXIT;
-              ELSE
-                // 0 bytes without error: the client closed the connection; otherwise a socket error
+                IF ( _result = RESULT_OK )
+                THEN
+                  _result := SysSockBind( hSocket        := _listener,
+                                          pSockAddr      := ADR(_address),
+                                          diSockAddrSize := SIZEOF(_address) );
+                END_IF
+                IF ( _result = RESULT_OK )
+                THEN
+                  _result := SysSockListen( hSocket          := _listener,
+                                            diMaxConnections := 1 );
+                END_IF
                 IF ( _result &lt;&gt; RESULT_OK )
                 THEN
                   ErrorID   := _result;
                   ErrorStep := _step;
                   Error     := TRUE;
-                END_IF
-                _step := 70;
-              END_IF
-
-          35: // wait AnswerDelayCycles PLC cycles (outputs go out, inputs come in)
-              IF ( _delayCount &lt; AnswerDelayCycles )
-              THEN
-                _delayCount := _delayCount + 1;
-                EXIT;
-              END_IF
-              // answer = PROFINET inputs of this cycle
-              FOR _idx := 0 TO LengthRobToPlc - 1
-              DO
-                _txBuffer[_idx] := RobotInData[LOWER_BOUND(RobotInData, 1) + UDINT_TO_DINT(_idx)];
-              END_FOR
-              _txCount := 0;
-              _step    := 40;
-
-          40: // send the answer (possibly in several parts)
-              _length := UDINT_TO_DINT(LengthRobToPlc - _txCount);
-              _count  := SysSockSend( hSocket      := _socket,
-                                      pbyBuffer    := ADR(_txBuffer[_txCount]),
-                                      diBufferSize := _length,
-                                      diFlags      := 0,
-                                      pResult      := ADR(_result) );
-              IF ( _count &gt; 0 )
-              THEN
-                _txCount := _txCount + TO_UDINT(_count);
-                IF ( _txCount &lt; LengthRobToPlc )
-                THEN
+                  SysSockClose(hSocket := _listener);
+                  _listener := RTS_INVALID_HANDLE;
+                  _step     := 90;
                   EXIT;
                 END_IF
-                // next request
-                _step := 30;
-                EXIT;
-              ELSIF ( _result = RESULT_WOULDBLOCK )
-              THEN
-                // send buffer full -&gt; again in the next cycle
-                EXIT;
-              ELSE
-                ErrorID   := _result;
-                ErrorStep := _step;
-                Error     := TRUE;
-                _step     := 70;
-              END_IF
+                _step := 20;
 
-          70: // close the client socket
-              SysSockClose(hSocket := _socket);
-              _socket  := RTS_INVALID_HANDLE;
-              _rxCount := 0;
-              IF ( _shutdown OR NOT Enable )
-              THEN
-                // close the server as well (the new client too, if one was accepted)
+            20: // wait for a client (poll, non-blocking)
+                _addressSize := SIZEOF(_clientAddress);
+                _newSocket   := SysSockAccept( hSocket         := _listener,
+                                               pSockAddr       := ADR(_clientAddress),
+                                               pdiSockAddrSize := ADR(_addressSize),
+                                               pResult         := ADR(_result) );
                 IF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
                 THEN
-                  SysSockClose(hSocket := _newSocket);
+                  _socket    := _newSocket;
                   _newSocket := RTS_INVALID_HANDLE;
+                  _step      := 25;
+                ELSIF (( _result &lt;&gt; RESULT_OK         ) AND
+                       ( _result &lt;&gt; RESULT_WOULDBLOCK ))
+                THEN
+                  ErrorID   := _result;
+                  ErrorStep := _step;
+                  Error     := TRUE;
+                  _step     := 80;
+                ELSE
+                  // no client yet
+                  EXIT;
                 END_IF
-                _step := 80;
-              ELSIF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
-              THEN
-                // continue with the new client
-                _socket    := _newSocket;
-                _newSocket := RTS_INVALID_HANDLE;
-                _step      := 25;
-              ELSE
-                // wait for the next client
-                _step := 20;
+
+            25: // new connection: non-blocking, no Nagle delay (one small telegram per cycle)
+                _value  := 1;
+                _result := SysSockIoctl( hSocket      := _socket,
+                                         diCommand    := SOCKET_FIONBIO,
+                                         pdiParameter := ADR(_value) );
+                _value  := 1;
+                SysSockSetOption( hSocket        := _socket,
+                                  diLevel        := SOCKET_IPPROTO_TCP,
+                                  diOption       := SOCKET_TCP_NODELAY,
+                                  pdiOptionValue := ADR(_value),
+                                  diOptionLen    := SIZEOF(_value) );
+                IF ( _result &lt;&gt; RESULT_OK )
+                THEN
+                  ErrorID   := _result;
+                  ErrorStep := _step;
+                  Error     := TRUE;
+                  _step     := 70;
+                ELSE
+                  Error        := FALSE;
+                  ErrorID      := 0;
+                  ErrorStep    := 0;
+                  Connections  := Connections + 1;
+                  MaxInterval  := T#0S;
+                  Interval     := T#0S;
+                  _lastRequest := TIME();
+                  _rxCount     := 0;
+                  _step        := 30;
+                END_IF
+
+            30: // a new client replaces the connected one (e.g. Python reconnects after a timeout,
+                // or the old connection is half open after a cable break)
+                _addressSize := SIZEOF(_clientAddress);
+                _newSocket   := SysSockAccept( hSocket         := _listener,
+                                               pSockAddr       := ADR(_clientAddress),
+                                               pdiSockAddrSize := ADR(_addressSize),
+                                               pResult         := ADR(_result) );
+                IF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
+                THEN
+                  _step := 70;
+                ELSE
+                  _step := 31;
+                END_IF
+
+            31: // receive the request (possibly in several parts)
+                _length := UDINT_TO_DINT(LengthPlcToRob - _rxCount);
+                _count  := SysSockRecv( hSocket      := _socket,
+                                        pbyBuffer    := ADR(_rxBuffer[_rxCount]),
+                                        diBufferSize := _length,
+                                        diFlags      := 0,
+                                        pResult      := ADR(_result) );
+                IF ( _count &gt; 0 )
+                THEN
+                  _rxCount := _rxCount + TO_UDINT(_count);
+                  IF ( _rxCount &lt; LengthPlcToRob )
+                  THEN
+                    // rest of the request in the next cycle
+                    _step := 30;
+                    EXIT;
+                  END_IF
+                  // complete request -&gt; PROFINET outputs
+                  FOR _idx := 0 TO LengthPlcToRob - 1
+                  DO
+                    RobotOutData[LOWER_BOUND(RobotOutData, 1) + UDINT_TO_DINT(_idx)] := _rxBuffer[_idx];
+                  END_FOR
+                  NewTelegram  := TRUE;
+                  Telegrams    := Telegrams + 1;
+                  Interval     := TIME() - _lastRequest;
+                  _lastRequest := TIME();
+                  IF ( Interval &gt; MaxInterval )
+                  THEN
+                    MaxInterval := Interval;
+                  END_IF
+                  _rxCount    := 0;
+                  _delayCount := 0;
+                  _step       := 35;
+                ELSIF ( _result = RESULT_WOULDBLOCK )
+                THEN
+                  // nothing received yet -&gt; poll again in the next cycle
+                  _step := 30;
+                  EXIT;
+                ELSE
+                  // 0 bytes without error: the client closed the connection; otherwise a socket error
+                  IF ( _result &lt;&gt; RESULT_OK )
+                  THEN
+                    ErrorID   := _result;
+                    ErrorStep := _step;
+                    Error     := TRUE;
+                  END_IF
+                  _step := 70;
+                END_IF
+
+            35: // wait AnswerDelayCycles PLC cycles (outputs go out, inputs come in)
+                IF ( _delayCount &lt; AnswerDelayCycles )
+                THEN
+                  _delayCount := _delayCount + 1;
+                  EXIT;
+                END_IF
+                // answer = PROFINET inputs of this cycle
+                FOR _idx := 0 TO LengthRobToPlc - 1
+                DO
+                  _txBuffer[_idx] := RobotInData[LOWER_BOUND(RobotInData, 1) + UDINT_TO_DINT(_idx)];
+                END_FOR
+                _txCount := 0;
+                _step    := 40;
+
+            40: // send the answer (possibly in several parts)
+                _length := UDINT_TO_DINT(LengthRobToPlc - _txCount);
+                _count  := SysSockSend( hSocket      := _socket,
+                                        pbyBuffer    := ADR(_txBuffer[_txCount]),
+                                        diBufferSize := _length,
+                                        diFlags      := 0,
+                                        pResult      := ADR(_result) );
+                IF ( _count &gt; 0 )
+                THEN
+                  _txCount := _txCount + TO_UDINT(_count);
+                  IF ( _txCount &lt; LengthRobToPlc )
+                  THEN
+                    EXIT;
+                  END_IF
+                  // next request
+                  _step := 30;
+                  EXIT;
+                ELSIF ( _result = RESULT_WOULDBLOCK )
+                THEN
+                  // send buffer full -&gt; again in the next cycle
+                  EXIT;
+                ELSE
+                  ErrorID   := _result;
+                  ErrorStep := _step;
+                  Error     := TRUE;
+                  _step     := 70;
+                END_IF
+
+            70: // close the client socket
+                SysSockClose(hSocket := _socket);
+                _socket  := RTS_INVALID_HANDLE;
+                _rxCount := 0;
+                IF ( _shutdown OR NOT Enable )
+                THEN
+                  // close the server as well (the new client too, if one was accepted)
+                  IF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
+                  THEN
+                    SysSockClose(hSocket := _newSocket);
+                    _newSocket := RTS_INVALID_HANDLE;
+                  END_IF
+                  _step := 80;
+                ELSIF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
+                THEN
+                  // continue with the new client
+                  _socket    := _newSocket;
+                  _newSocket := RTS_INVALID_HANDLE;
+                  _step      := 25;
+                ELSE
+                  // wait for the next client
+                  _step := 20;
+                  EXIT;
+                END_IF
+
+            80: // close the listener
+                IF ( _listener &lt;&gt; RTS_INVALID_HANDLE )
+                THEN
+                  SysSockClose(hSocket := _listener);
+                  _listener := RTS_INVALID_HANDLE;
+                END_IF
+                _shutdown := FALSE;
+                IF ( Error AND Enable )
+                THEN
+                  _step := 90;
+                ELSE
+                  _step := 0;
+                END_IF
                 EXIT;
-              END_IF
 
-          80: // close the listener
-              IF ( _listener &lt;&gt; RTS_INVALID_HANDLE )
-              THEN
-                SysSockClose(hSocket := _listener);
-                _listener := RTS_INVALID_HANDLE;
-              END_IF
-              _shutdown := FALSE;
-              IF ( Error AND Enable )
-              THEN
-                _step := 90;
-              ELSE
-                _step := 0;
-              END_IF
-              EXIT;
+            90: // error of the server: wait before the next attempt
+                _timer( IN := TRUE, PT := RetryDelay );
+                IF (( NOT Enable ) OR
+                    ( _timer.Q   ))
+                THEN
+                  _timer( IN := FALSE );
+                  _step := 0;
+                ELSE
+                  EXIT;
+                END_IF
 
-          90: // error of the server: wait before the next attempt
-              _timer( IN := TRUE, PT := RetryDelay );
-              IF (( NOT Enable ) OR
-                  ( _timer.Q   ))
-              THEN
-                _timer( IN := FALSE );
-                _step := 0;
-              ELSE
-                EXIT;
-              END_IF
+          ELSE
+            ErrorID   := 16#FFFE;
+            ErrorStep := _step;
+            Error     := TRUE;
+            _step     := 70;
+          END_CASE
+        END_FOR
 
-        ELSE
-          ErrorID   := 16#FFFE;
-          ErrorStep := _step;
-          Error     := TRUE;
-          _step     := 70;
-        END_CASE
-      END_FOR
-
-      // states derived from the step, so they cannot differ from it
-      Listening := ( _step &gt;= 20 ) AND ( _step &lt; 80 );
-      Connected := ( _step &gt;= 25 ) AND ( _step &lt; 70 );</xhtml>
+        // states derived from the step, so they cannot differ from it
+        Listening := ( _step &gt;= 20 ) AND ( _step &lt; 80 );
+        Connected := ( _step &gt;= 25 ) AND ( _step &lt; 70 );</xhtml>
           </ST>
         </body>
         <addData>
@@ -781,25 +784,25 @@
               </interface>
               <body>
                 <ST>
-                  <xhtml xmlns="http://www.w3.org/1999/xhtml">IF ( NOT bInCopyCode )
-            THEN
-              IF ( _socket &lt;&gt; RTS_INVALID_HANDLE )
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">  IF ( NOT bInCopyCode )
               THEN
-                SysSockClose(hSocket := _socket);
-                _socket := RTS_INVALID_HANDLE;
+                IF ( _socket &lt;&gt; RTS_INVALID_HANDLE )
+                THEN
+                  SysSockClose(hSocket := _socket);
+                  _socket := RTS_INVALID_HANDLE;
+                END_IF
+                IF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
+                THEN
+                  SysSockClose(hSocket := _newSocket);
+                  _newSocket := RTS_INVALID_HANDLE;
+                END_IF
+                IF ( _listener &lt;&gt; RTS_INVALID_HANDLE )
+                THEN
+                  SysSockClose(hSocket := _listener);
+                  _listener := RTS_INVALID_HANDLE;
+                END_IF
               END_IF
-              IF ( _newSocket &lt;&gt; RTS_INVALID_HANDLE )
-              THEN
-                SysSockClose(hSocket := _newSocket);
-                _newSocket := RTS_INVALID_HANDLE;
-              END_IF
-              IF ( _listener &lt;&gt; RTS_INVALID_HANDLE )
-              THEN
-                SysSockClose(hSocket := _listener);
-                _listener := RTS_INVALID_HANDLE;
-              END_IF
-            END_IF
-            FB_exit := TRUE;</xhtml>
+              FB_exit := TRUE;</xhtml>
                 </ST>
               </body>
               <InterfaceAsPlainText>
@@ -986,14 +989,14 @@
         </interface>
         <body>
           <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml">GVL_Bridge.Bridge( Enable            := Enable,
-                         LocalHost         := '',
-                         LocalPort         := 5000,
-                         LengthPlcToRob    := 256,
-                         LengthRobToPlc    := 256,
-                         AnswerDelayCycles := 0,
-                         RobotOutData      := GVL_Bridge.RobotOutData,
-                         RobotInData       := GVL_Bridge.RobotInData );</xhtml>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">  GVL_Bridge.Bridge( Enable            := Enable,
+                           LocalHost         := '',
+                           LocalPort         := 5000,
+                           LengthPlcToRob    := 256,
+                           LengthRobToPlc    := 256,
+                           AnswerDelayCycles := 0,
+                           RobotOutData      := GVL_Bridge.RobotOutData,
+                           RobotInData       := GVL_Bridge.RobotInData );</xhtml>
           </ST>
         </body>
         <addData>
@@ -1084,6 +1087,11 @@
                 <Attribute Name="qualified_only" Value="" />
             </Attributes>
           </data>
+          <data name="http://www.3s-software.com/plcopenxml/buildproperties" handleUnknown="implementation">
+            <BuildProperties>
+              <LinkAlways>true</LinkAlways>
+            </BuildProperties>
+          </data>
           <data name="http://www.3s-software.com/plcopenxml/interfaceasplaintext" handleUnknown="implementation">
             <InterfaceAsPlainText>
               <xhtml xmlns="http://www.w3.org/1999/xhtml">{attribute 'qualified_only'}
@@ -1124,7 +1132,44 @@
             <ObjectId>e6da4c28-912c-52d5-a5af-2a3b631a395f</ObjectId>
           </data>
         </addData>
+        <documentation>
+          <xhtml xmlns="http://www.w3.org/1999/xhtml"> -------------------------------------------------------------------------
+        SRCI Robot Library
+       -------------------------------------------------------------------------
+
+        Object:      GVL_Bridge (CODESYS)
+        Author:      Thorsten Brach
+        Date:        2026-10-04
+
+        Description:
+          PROFINET process data of the robot and the TCP/IP bridge instance.
+          Map RobotInData / RobotOutData in the I/O mapping of the PROFINET device
+          (modules of the SRCI telegrams) with "Map to existing variable".
+
+        Copyright:
+          (C) 2026 Thorsten Brach. All rights reserved
+                   Licensed under the MIT License.
+
+        Disclaimer:
+          This project is provided without any guarantee and can be used for
+          private and commercial purposes. Any use is at the user's
+          own risk and responsibility.
+
+       -------------------------------------------------------------------------
+      / Telegram RC -&gt; PLC: PROFINET inputs of the robot (map to the input module(s) of the RC)
+      / Telegram PLC -&gt; RC: PROFINET outputs of the robot (map to the output module(s) of the RC)
+      / TCP/IP server for the SRCI client in Python</xhtml>
+        </documentation>
       </globalVars>
+    </data>
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="PLC_PRG" ObjectId="23a07587-2de9-5042-ae70-677764e3bf09" />
+        <Folder Name="Bridge">
+          <Object Name="FB_SrciTcpIpBridge" ObjectId="bd98f39a-6927-5dd6-8f61-04f37319d33d" />
+          <Object Name="GVL_Bridge" ObjectId="e6da4c28-912c-52d5-a5af-2a3b631a395f" />
+        </Folder>
+      </ProjectStructure>
     </data>
   </addData>
 </project>

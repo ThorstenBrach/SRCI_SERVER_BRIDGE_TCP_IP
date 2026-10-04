@@ -25,6 +25,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
  - CODESYS: the PLCopen XML is valid against the PLCopen schema TC6 XML V2.01 (a plain `STRING`
    was written as `<STRING />` instead of `<string />`)
+ - CODESYS: the PLCopen XML follows the PLCopen export of TwinCAT/CODESYS: BOM, project information
+   and project structure (folder "Bridge"), `VAR_IN_OUT ARRAY[*]` as pointer in `<inputVars>`, build
+   property "link always" of the GVL, bodies with their indentation
 
 ### Tested with
  - TwinCAT 3 + JAKA MiniCobo (controller 1.7.1, SRCI 1.1, profile Core) and SRCI_PY

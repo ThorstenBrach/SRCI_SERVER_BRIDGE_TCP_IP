@@ -82,8 +82,10 @@ def variable_xml(name: str, type_text: str, init: str | None, doc: str) -> str:
 
 
 def sections_xml(declaration: str) -> list[str]:
-    """``<inputVars>`` ... blocks of a declaration text."""
+    """``<inputVars>`` ... blocks of a declaration text. Like the PLCopen export of TwinCAT/CODESYS,
+    variable length arrays of ``VAR_IN_OUT`` are written as pointers in ``<inputVars>``."""
     out: list[str] = []
+    moved: list[str] = []
     section: str | None = None
     variables: list[str] = []
     doc: list[str] = []
@@ -98,15 +100,27 @@ def sections_xml(declaration: str) -> list[str]:
             assert section is not None
             tag, _, constant = section.partition(" ")
             head = f'<{tag} constant="true">' if constant else f"<{tag}>"
-            out.append(f"{head}\n{indent(chr(10).join(variables), '  ')}\n</{tag}>")
+            if variables:
+                out.append(f"{head}\n{indent(chr(10).join(variables), '  ')}\n</{tag}>")
             section = None
         elif s.startswith("///"):
             doc.append(s[3:].strip())
         elif section is not None and (m := DECL.match(s)):
-            variables.append(variable_xml(m.group(1), m.group(2), m.group(3), " ".join(doc)))
+            xml = variable_xml(m.group(1), m.group(2), m.group(3), " ".join(doc))
+            if section == "inOutVars" and re.fullmatch(r"(?i)ARRAY\s*\[\s*\*\s*\]\s*OF\s+.+", m.group(2)):
+                moved.append(xml)
+            else:
+                variables.append(xml)
             doc = []
         elif section is not None:
             raise ValueError(f"declaration line {s!r} not supported")
+    if moved:
+        inputs = [i for i, block in enumerate(out) if block.startswith("<inputVars>")]
+        if inputs:
+            block = out[inputs[0]]
+            out[inputs[0]] = block[: -len("</inputVars>")] + indent("\n".join(moved), "  ") + "\n</inputVars>"
+        else:
+            out.insert(0, f"<inputVars>\n{indent(chr(10).join(moved), '  ')}\n</inputVars>")
     return out
 
 
@@ -133,10 +147,11 @@ def split_pou(text: str) -> tuple[str, str, str, str, list[tuple[str, str, str, 
 
 
 def dedent_body(body: str) -> str:
+    """Body text without the empty lines around it (indentation kept, like the export)."""
     lines = body.strip("\n").split("\n")
     while lines and not lines[-1].strip():
         lines.pop()
-    return "\n".join(line[2:] if line.startswith("  ") else line for line in lines)
+    return "\n".join(lines)
 
 
 def doc_of(declaration: str) -> str:
@@ -183,15 +198,26 @@ def gvl_xml(path: Path) -> str:
         items = "\n".join(f'      <Attribute Name="{a}" Value="" />' for a in attrs)
         add.append(f'<data name="{NS}attributes" handleUnknown="implementation">\n'
                    f"  <Attributes>\n{items}\n  </Attributes>\n</data>")  # fmt: skip
+    add.append(f'<data name="{NS}buildproperties" handleUnknown="implementation">\n'
+               "  <BuildProperties>\n    <LinkAlways>true</LinkAlways>\n  </BuildProperties>\n</data>")  # fmt: skip
     add.append(plain_xml(text.strip()))
     add.append(f'<data name="{NS}objectid" handleUnknown="discard">\n  <ObjectId>{object_id(name)}</ObjectId>\n</data>')
+    header = "\n".join(line.strip()[2:] for line in text.splitlines() if line.strip().startswith("//"))
     return (f'<globalVars name="{name}">\n{inner}\n  <addData>\n{indent(chr(10).join(add), "    ")}\n'
-            "  </addData>\n</globalVars>")  # fmt: skip
+            f"  </addData>\n  <documentation>\n    {XHTML}{escape(header)}</xhtml>\n  </documentation>\n"
+            "</globalVars>")  # fmt: skip
 
 
 def project_xml() -> str:
-    pous = [pou_xml(p) for p in sorted(SOURCE.glob("*.st")) if not p.stem.startswith("GVL_")]
-    gvls = [gvl_xml(p) for p in sorted(SOURCE.glob("GVL_*.st"))]
+    pou_files = [p for p in sorted(SOURCE.glob("*.st")) if not p.stem.startswith("GVL_")]
+    gvl_files = sorted(SOURCE.glob("GVL_*.st"))
+    pous = [pou_xml(p) for p in pou_files]
+    gvls = [gvl_xml(p) for p in gvl_files]
+    # project tree: PLC_PRG at the top, the bridge (FB + GVL) in the folder "Bridge"
+    tree = [f'<Object Name="{p.stem}" ObjectId="{object_id(p.stem)}" />' for p in pou_files if p.stem == "PLC_PRG"]
+    folder = [f'  <Object Name="{p.stem}" ObjectId="{object_id(p.stem)}" />'
+              for p in [*pou_files, *gvl_files] if p.stem != "PLC_PRG"]  # fmt: skip
+    tree += ['<Folder Name="Bridge">', *folder, "</Folder>"]
     now = STAMP
     return (
         '<?xml version="1.0" encoding="utf-8"?>\n'
@@ -201,7 +227,9 @@ def project_xml() -> str:
         "    <coordinateInfo>\n"
         '      <fbd><scaling x="1" y="1" /></fbd>\n      <ld><scaling x="1" y="1" /></ld>\n'
         '      <sfc><scaling x="1" y="1" /></sfc>\n'
-        "    </coordinateInfo>\n  </contentHeader>\n"
+        "    </coordinateInfo>\n"
+        f'    <addData>\n      <data name="{NS}projectinformation" handleUnknown="implementation">\n'
+        "        <ProjectInformation />\n      </data>\n    </addData>\n  </contentHeader>\n"
         "  <types>\n    <dataTypes />\n"
         f"    <pous>\n{indent(chr(10).join(pous), '      ')}\n    </pous>\n  </types>\n"
         "  <instances>\n    <configurations />\n  </instances>\n"
@@ -210,12 +238,14 @@ def project_xml() -> str:
             f'    <data name="{NS}globalvars" handleUnknown="implementation">\n{indent(g, "      ")}\n    </data>'
             for g in gvls
         )
-        + "\n  </addData>\n</project>\n"
+        + f'\n    <data name="{NS}projectstructure" handleUnknown="discard">\n      <ProjectStructure>\n'
+        + indent("\n".join(tree), "        ")
+        + "\n      </ProjectStructure>\n    </data>\n  </addData>\n</project>\n"
     )
 
 
 def main() -> int:
-    OUTPUT.write_text(project_xml(), encoding="utf-8")
+    OUTPUT.write_text(project_xml(), encoding="utf-8-sig")  # with BOM, like the export
     print(f"-> {OUTPUT}")
     return 0
 
