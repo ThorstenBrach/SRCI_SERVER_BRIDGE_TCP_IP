@@ -1,0 +1,1992 @@
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.10" ClassName="CDevEtherCATDef" SubType="111">
+	<ImageDatas>
+		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e000000010018000000000000000000c40e0000c40e00000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8ead008ead008ead008ead00ffffffd58f00d58f00d58f00d58f00ffffff0ec2ff0ec2ff0ec2ff0ec2ffffffffffffff8ead008ead008ead008ead00ffffffd58f00d58f00d58f00d58f00ffffff0ec2ff0ec2ff0ec2ff0ec2ffffffffffffff8ead008ead008ead008ead00ffffffd58f00d58f00d58f00d58f00ffffff0ec2ff0ec2ff0ec2ff0ec2ffffffffffffff8ead008ead008ead008ead00ffffffd58f00d58f00d58f00d58f00ffffff0ec2ff0ec2ff0ec2ff0ec2ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</ImageData>
+		<ImageData Id="1001">424d360300000000000036000000280000001000000010000000010018000000000000000000c40e0000c40e00000000000000000000ffffffffffffffffffffffffffffffffffffffffff808080808080808080ffffffffffff808080808080ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff808080ffffffffffff808080ffffffffffff808080ffffffffffffffffffffffffffffffffffffffffffffffffffffff808080ffffffffffff808080ffffffffffff808080ffffffffffffffffffffffffffffffffffffffffffffffffffffff808080ffffffffffff808080ffffffffffff808080ffffffffffffffffffffffffffffffffffffffffffffffff808080808080808080ffffffffffff808080808080ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8ead008ead008ead008ead00ffffffd58f00d58f00d58f00d58f00ffffff0ec2ff0ec2ff0ec2ff0ec2ffffffffffffff8ead008ead008ead008ead00ffffffd58f00d58f00d58f00d58f00ffffff0ec2ff0ec2ff0ec2ff0ec2ffffffffffffff8ead008ead008ead008ead00ffffffd58f00d58f00d58f00d58f00ffffff0ec2ff0ec2ff0ec2ff0ec2ffffffffffffff8ead008ead008ead008ead00ffffffd58f00d58f00d58f00d58f00ffffff0ec2ff0ec2ff0ec2ff0ec2ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</ImageData>
+	</ImageDatas>
+	<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="0.0.0.0.2.1" RemoteName="Device 1 (EtherCAT)">
+		<Name>__FILENAME__</Name>
+		<AddressInfo>
+			<Pnp>
+				<DeviceDesc></DeviceDesc>
+				<DeviceName></DeviceName>
+				<DeviceData>000000000000</DeviceData>
+			</Pnp>
+		</AddressInfo>
+		<Image Id="1" AddrType="9" ImageType="3">
+			<Name>Image</Name>
+		</Image>
+		<Box Id="1" BoxType="9099" BoxFlags="#x00000020">
+			<Name>CS8</Name>
+			<ImageId>1000</ImageId>
+			<EtherCAT SlaveType="2" PdiType="#x0006" StateMBoxPolling="true" UseLrdLwrInsteadOfLrw="true" CycleMBoxPollingTime="0" CoeType="11" EoeType="1" VendorId="#x00000584" ProductCode="#x00000110" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataDcTimes="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="uniVALplc_server_CS8 - s4.5" Desc="Staeubli Robot" PortABoxInfo="#x00ffffff">
+				<SyncMan>001080003600010001000000800080008000001036010000</SyncMan>
+				<SyncMan>801080003200010002000000800080008000801032010000</SyncMan>
+				<SyncMan>00117c007400010003000000000000010001001174010000</SyncMan>
+				<SyncMan>001494003000010004000000000000010001001430010000</SyncMan>
+				<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
+				<Fmmu>0000000000000000001400010100000002000000000000000000000000000000</Fmmu>
+				<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+				<SwitchPortData>00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+				<DcData>0003000000000000000000000000000001000000000000000000000000000000</DcData>
+				<DcMode>44432d73796e6368726f6e697a656400444320666f722073796e6368726f6e697a6174696f6e00000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+				<Pdo Name="1. TxPdo1" Index="#x1a00" Flags="#x0000" SyncMan="3">
+					<Entry Name="EtherCAT-1\%Q0" Index="#x6020" Sub="#x01">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q1" Index="#x6020" Sub="#x02">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q2" Index="#x6020" Sub="#x03">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q3" Index="#x6020" Sub="#x04">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q4" Index="#x6020" Sub="#x05">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q5" Index="#x6020" Sub="#x06">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q6" Index="#x6020" Sub="#x07">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q7" Index="#x6020" Sub="#x08">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q8" Index="#x6020" Sub="#x09">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q9" Index="#x6020" Sub="#x0a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q10" Index="#x6020" Sub="#x0b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q11" Index="#x6020" Sub="#x0c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q12" Index="#x6020" Sub="#x0d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q13" Index="#x6020" Sub="#x0e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q14" Index="#x6020" Sub="#x0f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q15\ResetErrAck" Index="#x6020" Sub="#x10">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q16\ResetCommAck" Index="#x6020" Sub="#x11">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q17" Index="#x6020" Sub="#x12">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q18" Index="#x6020" Sub="#x13">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q19" Index="#x6020" Sub="#x14">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q20" Index="#x6020" Sub="#x15">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q21" Index="#x6020" Sub="#x16">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q22" Index="#x6020" Sub="#x17">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q23" Index="#x6020" Sub="#x18">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q24" Index="#x6020" Sub="#x19">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q25" Index="#x6020" Sub="#x1a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q26" Index="#x6020" Sub="#x1b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q27" Index="#x6020" Sub="#x1c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q28" Index="#x6020" Sub="#x1d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q29" Index="#x6020" Sub="#x1e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q30" Index="#x6020" Sub="#x1f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q31" Index="#x6020" Sub="#x20">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q32" Index="#x6020" Sub="#x21">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q33" Index="#x6020" Sub="#x22">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q34" Index="#x6020" Sub="#x23">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q35" Index="#x6020" Sub="#x24">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q36" Index="#x6020" Sub="#x25">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q37" Index="#x6020" Sub="#x26">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q38" Index="#x6020" Sub="#x27">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q39" Index="#x6020" Sub="#x28">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q40" Index="#x6020" Sub="#x29">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q41" Index="#x6020" Sub="#x2a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q42" Index="#x6020" Sub="#x2b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q43" Index="#x6020" Sub="#x2c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q44" Index="#x6020" Sub="#x2d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q45" Index="#x6020" Sub="#x2e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q46" Index="#x6020" Sub="#x2f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q47" Index="#x6020" Sub="#x30">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q48" Index="#x6020" Sub="#x31">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q49" Index="#x6020" Sub="#x32">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q50" Index="#x6020" Sub="#x33">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q51" Index="#x6020" Sub="#x34">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q52" Index="#x6020" Sub="#x35">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q53" Index="#x6020" Sub="#x36">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q54" Index="#x6020" Sub="#x37">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q55" Index="#x6020" Sub="#x38">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q56" Index="#x6020" Sub="#x39">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q57" Index="#x6020" Sub="#x3a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q58" Index="#x6020" Sub="#x3b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q59" Index="#x6020" Sub="#x3c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q60" Index="#x6020" Sub="#x3d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q61" Index="#x6020" Sub="#x3e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q62" Index="#x6020" Sub="#x3f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%Q63" Index="#x6020" Sub="#x40">
+						<Type>BIT</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="1. TxPdo2" Index="#x1a01" Flags="#x0000" SyncMan="3">
+					<Entry Name="EtherCAT-1\%QW64" Index="#x6401" Sub="#x01">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW80" Index="#x6401" Sub="#x02">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW96" Index="#x6401" Sub="#x03">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW112" Index="#x6401" Sub="#x04">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW128\armIO_Ain0" Index="#x6401" Sub="#x05">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW144\armIO_Ain1" Index="#x6401" Sub="#x06">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW160\armIO_Ain2" Index="#x6401" Sub="#x07">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW176\armIO_Ain3" Index="#x6401" Sub="#x08">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW192\WordParam0" Index="#x6401" Sub="#x09">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW208\WordParam1" Index="#x6401" Sub="#x0a">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW224\WordParam2" Index="#x6401" Sub="#x0b">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW240\WordParam3" Index="#x6401" Sub="#x0c">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW256\WordParam4" Index="#x6401" Sub="#x0d">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW272\oReserve0" Index="#x6401" Sub="#x0e">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW288\oReserve1" Index="#x6401" Sub="#x0f">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW304\oReserve2" Index="#x6401" Sub="#x10">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW320\MotionID" Index="#x6401" Sub="#x11">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QW336\MotionProgress" Index="#x6401" Sub="#x12">
+						<Type>UINT</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="1. TxPdo3" Index="#x1a02" Flags="#x0000" SyncMan="3">
+					<Entry Name="EtherCAT-1\%QF352\RobotX" Index="#x6403" Sub="#x01">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF384\RobotY" Index="#x6403" Sub="#x02">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF416\RobotZ" Index="#x6403" Sub="#x03">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF448\\RobotRX" Index="#x6403" Sub="#x04">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF480\RobotRY" Index="#x6403" Sub="#x05">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF512\RobotRZ" Index="#x6403" Sub="#x06">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF544" Index="#x6403" Sub="#x07">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF576" Index="#x6403" Sub="#x08">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF608" Index="#x6403" Sub="#x09">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF640" Index="#x6403" Sub="#x0a">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF672" Index="#x6403" Sub="#x0b">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF704" Index="#x6403" Sub="#x0c">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF736" Index="#x6403" Sub="#x0d">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF768" Index="#x6403" Sub="#x0e">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF800\FloatParameter0" Index="#x6403" Sub="#x0f">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF832\FloatParameter1" Index="#x6403" Sub="#x10">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF864\FloatParameter2" Index="#x6403" Sub="#x11">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF896\FloatParameter3" Index="#x6403" Sub="#x12">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF928\FloatParameter4" Index="#x6403" Sub="#x13">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF960\FloatParameter5" Index="#x6403" Sub="#x14">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF992\RobotTrq1" Index="#x6403" Sub="#x15">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF1024\RobotTrq2" Index="#x6403" Sub="#x16">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF1056\RobotTrq3" Index="#x6403" Sub="#x17">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF1088\RobotTrq4" Index="#x6403" Sub="#x18">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF1120\RobotTrq5" Index="#x6403" Sub="#x19">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%QF1156\RobotTrq6" Index="#x6403" Sub="#x1a">
+						<Type>REAL</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="1. RxPdo1" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
+					<Entry Name="EtherCAT-1\%I0\LifebitPlc" Index="#x6220" Sub="#x01">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I1" Index="#x6220" Sub="#x02">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I2" Index="#x6220" Sub="#x03">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I3" Index="#x6220" Sub="#x04">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I4" Index="#x6220" Sub="#x05">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I5" Index="#x6220" Sub="#x06">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I6" Index="#x6220" Sub="#x07">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I7" Index="#x6220" Sub="#x08">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I8" Index="#x6220" Sub="#x09">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I9" Index="#x6220" Sub="#x0a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I10" Index="#x6220" Sub="#x0b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I11" Index="#x6220" Sub="#x0c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I12" Index="#x6220" Sub="#x0d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I13" Index="#x6220" Sub="#x0e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I14" Index="#x6220" Sub="#x0f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I15" Index="#x6220" Sub="#x10">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I16" Index="#x6220" Sub="#x11">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I17" Index="#x6220" Sub="#x12">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I18" Index="#x6220" Sub="#x13">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I19" Index="#x6220" Sub="#x14">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I20" Index="#x6220" Sub="#x15">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I21" Index="#x6220" Sub="#x16">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I22" Index="#x6220" Sub="#x17">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I23" Index="#x6220" Sub="#x18">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I24" Index="#x6220" Sub="#x19">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I25" Index="#x6220" Sub="#x1a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I26" Index="#x6220" Sub="#x1b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I27" Index="#x6220" Sub="#x1c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I28" Index="#x6220" Sub="#x1d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I29" Index="#x6220" Sub="#x1e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I30" Index="#x6220" Sub="#x1f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I31" Index="#x6220" Sub="#x20">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I32" Index="#x6220" Sub="#x21">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I33" Index="#x6220" Sub="#x22">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I34" Index="#x6220" Sub="#x23">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I35" Index="#x6220" Sub="#x24">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I36" Index="#x6220" Sub="#x25">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I37" Index="#x6220" Sub="#x26">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I38" Index="#x6220" Sub="#x27">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I39" Index="#x6220" Sub="#x28">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I40" Index="#x6220" Sub="#x29">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I41" Index="#x6220" Sub="#x2a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I42" Index="#x6220" Sub="#x2b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I43" Index="#x6220" Sub="#x2c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I44" Index="#x6220" Sub="#x2d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I45" Index="#x6220" Sub="#x2e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I46" Index="#x6220" Sub="#x2f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I47" Index="#x6220" Sub="#x30">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I48" Index="#x6220" Sub="#x31">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I49" Index="#x6220" Sub="#x32">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I50" Index="#x6220" Sub="#x33">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I51" Index="#x6220" Sub="#x34">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I52" Index="#x6220" Sub="#x35">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I53" Index="#x6220" Sub="#x36">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I54" Index="#x6220" Sub="#x37">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I55" Index="#x6220" Sub="#x38">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I56" Index="#x6220" Sub="#x39">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I57" Index="#x6220" Sub="#x3a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I58" Index="#x6220" Sub="#x3b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I59" Index="#x6220" Sub="#x3c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I60" Index="#x6220" Sub="#x3d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I61" Index="#x6220" Sub="#x3e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I62" Index="#x6220" Sub="#x3f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%I63" Index="#x6220" Sub="#x40">
+						<Type>BIT</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="1. RxPdo2" Index="#x1601" InOut="1" Flags="#x0000" SyncMan="2">
+					<Entry Name="EtherCAT-1\%IW64\SrvID_FctCode" Index="#x6411" Sub="#x01">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW80\Frame_Tool" Index="#x6411" Sub="#x02">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF96\OverrideCmd" Index="#x6413" Sub="#x01">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW128\JogMove1" Index="#x6411" Sub="#x03">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW144\JogMove2" Index="#x6411" Sub="#x04">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW160\JogMove3" Index="#x6411" Sub="#x05">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW176\JogMove4" Index="#x6411" Sub="#x06">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW192\JogMove5" Index="#x6411" Sub="#x07">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW208\JogMove6" Index="#x6411" Sub="#x08">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW224\armIO_Aout0" Index="#x6411" Sub="#x09">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW240\armIO_Aout1" Index="#x6411" Sub="#x0a">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW256\armIO_Aout2" Index="#x6411" Sub="#x0b">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW272\armIO_Aout3" Index="#x6411" Sub="#x0c">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW288\WordParameter0" Index="#x6411" Sub="#x0d">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW304" Index="#x6411" Sub="#x0e">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW320" Index="#x6411" Sub="#x0f">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW336" Index="#x6411" Sub="#x10">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW352" Index="#x6411" Sub="#x11">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW368" Index="#x6411" Sub="#x12">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW384\WordParameter6" Index="#x6411" Sub="#x13">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW400\WordParameter7" Index="#x6411" Sub="#x14">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW416\WordParameter8" Index="#x6411" Sub="#x15">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IW432\iReserve0" Index="#x6411" Sub="#x16">
+						<Type>UINT</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="1. RxPdo3" Index="#x1602" InOut="1" Flags="#x0000" SyncMan="2">
+					<Entry Name="EtherCAT-1\%IF448\FloatParameter0" Index="#x6413" Sub="#x02">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF480\FloatParameter1" Index="#x6413" Sub="#x03">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF512\FloatParameter2" Index="#x6413" Sub="#x04">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF544\FloatParameter3" Index="#x6413" Sub="#x05">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF576\FloatParameter4" Index="#x6413" Sub="#x06">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF608\FloatParameter5" Index="#x6413" Sub="#x07">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF640\FloatParameter6" Index="#x6413" Sub="#x08">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF672\FloatParameter7" Index="#x6413" Sub="#x09">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF704\FloatParameter8" Index="#x6413" Sub="#x0a">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF736\FloatParameter9" Index="#x6413" Sub="#x0b">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF768\FloatParameter10" Index="#x6413" Sub="#x0c">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF800\FloatParameter11" Index="#x6413" Sub="#x0d">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF832\FloatParameter12" Index="#x6413" Sub="#x0e">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF864\FloatParameter13" Index="#x6413" Sub="#x0f">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF896\FloatParameter14" Index="#x6413" Sub="#x10">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF928\FloatParameter15" Index="#x6413" Sub="#x11">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="EtherCAT-1\%IF960\FloatParameter16" Index="#x6413" Sub="#x12">
+						<Type>REAL</Type>
+					</Entry>
+				</Pdo>
+			</EtherCAT>
+		</Box>
+		<Box Id="2" BoxType="9099" BoxFlags="#x00000020">
+			<Name>CS9</Name>
+			<ImageId>1001</ImageId>
+			<EtherCAT SlaveType="2" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" Unsupported64BitDc="true" CycleMBoxPollingTime="0" CoeType="19" FoeType="1" VendorId="#x00000584" ProductCode="#x00000028" RevisionNo="#x00020005" InfoDataAddr="true" PortPhys="17" MaxSlotCount="2" SlotPdoIncrement="1" Type="uniVALplc_server_CS9 - s4.5" Desc="uniVALplc_server" PortABoxInfo="#x01000001">
+				<SyncMan>001080003600010001000000800080008000001036010000</SyncMan>
+				<SyncMan>801080003200010002000000800080008000801032010000</SyncMan>
+				<SyncMan>001197007400010003000000000000041b00001174010000</SyncMan>
+				<SyncMan>001daf003000010004000000000000041b00001d30010000</SyncMan>
+				<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
+				<Fmmu>0000000000000000001d00010100000002000000000000000000000000000000</Fmmu>
+				<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+				<BootStrapData>0010800080108000</BootStrapData>
+				<DcMode>44634f66660000000000000000000000444320756e757365640000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
+				<DcMode>446353796e633000000000000000000044432053796e633020666f722073796e6368726f6e697a6174696f6e00000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+				<Pdo Name="FSOE Inputs" Index="#x1a00" Flags="#x0091" SyncMan="3">
+					<Entry Name="FSOE__FSoE Slave CMD" Index="#x6000" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="FSOE__manualSlow" Index="#x6001" Sub="#x01">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__manualFast" Index="#x6001" Sub="#x02">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__autoLocal" Index="#x6001" Sub="#x03">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__autoRemote" Index="#x6001" Sub="#x04">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__maintenanceMode" Index="#x6001" Sub="#x05">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reducedSafety" Index="#x6001" Sub="#x06">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x07">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x08">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x09">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x0a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x0b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x0c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x0d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x0e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x0f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x10">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Slave CRC_0" Index="#x6000" Sub="#x03">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__safeState" Index="#x6001" Sub="#x11">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__armPower" Index="#x6001" Sub="#x12">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__fastSpeed" Index="#x6001" Sub="#x13">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__sosState" Index="#x6001" Sub="#x14">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__ss2State" Index="#x6001" Sub="#x15">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__ss1State" Index="#x6001" Sub="#x16">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__waitingRestartAck" Index="#x6001" Sub="#x17">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__restartAck" Index="#x6001" Sub="#x18">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__mcpRemoval" Index="#x6001" Sub="#x19">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__mcpPlug" Index="#x6001" Sub="#x1a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__mcpEnabling" Index="#x6001" Sub="#x1b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__mcpEstop" Index="#x6001" Sub="#x1c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x1d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x1e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x1f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x20">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Slave CRC_1" Index="#x6000" Sub="#x04">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x21">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x22">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x23">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x24">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x25">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x26">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x27">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x28">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__usiA" Index="#x6001" Sub="#x29">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__usiB" Index="#x6001" Sub="#x2a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__usiC" Index="#x6001" Sub="#x2b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__usiD" Index="#x6001" Sub="#x2c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x2d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x2e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x2f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x30">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Slave CRC_2" Index="#x6000" Sub="#x05">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__zone1" Index="#x6001" Sub="#x31">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__zone2" Index="#x6001" Sub="#x32">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__zone3" Index="#x6001" Sub="#x33">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__zone4" Index="#x6001" Sub="#x34">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x35">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x36">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x37">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x38">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x39">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x3a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x3b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x3c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x3d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x3e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x3f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x6001" Sub="#x40">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Slave CRC_3" Index="#x6000" Sub="#x06">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x41">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x42">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x43">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x44">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x45">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x46">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x47">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x48">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x49">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x4a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x4b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x4c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x4d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x4e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x4f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x50">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Slave CRC_4" Index="#x6000" Sub="#x07">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x51">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x52">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x53">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x54">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x55">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x56">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x57">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x58">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x59">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x5a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x5b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x5c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x5d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x5e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x5f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x6001" Sub="#x60">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Slave CRC_5" Index="#x6000" Sub="#x08">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__Slave ConnID" Index="#x6000" Sub="#x02">
+						<Type>UINT</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="FSOE Outputs" Index="#x1600" InOut="1" Flags="#x0091" SyncMan="2">
+					<Entry Name="FSOE__FSoE Master CMD" Index="#x7000" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="FSOE__manualSlow" Index="#x7001" Sub="#x01">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__manualFast" Index="#x7001" Sub="#x02">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__autoLocal" Index="#x7001" Sub="#x03">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__autoRemote" Index="#x7001" Sub="#x04">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x05">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x06">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x07">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x08">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__ss1Ctrl" Index="#x7001" Sub="#x09">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__enablingDeviceCtrl" Index="#x7001" Sub="#x0a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__ss2Ctrl" Index="#x7001" Sub="#x0b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x0c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__restartAck" Index="#x7001" Sub="#x0d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__referencing" Index="#x7001" Sub="#x0e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x0f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x10">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Master CRC_0" Index="#x7000" Sub="#x03">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x11">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x12">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x13">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x14">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x15">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x16">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x17">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x18">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__monitoringA" Index="#x7001" Sub="#x19">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__monitoringB" Index="#x7001" Sub="#x1a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__monitoringC" Index="#x7001" Sub="#x1b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__monitoringD" Index="#x7001" Sub="#x1c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x1d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x1e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x1f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x20">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Master CRC_1" Index="#x7000" Sub="#x04">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x21">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x22">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x23">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x24">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x25">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x26">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x27">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x28">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x29">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x2a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x2b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x2c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x2d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x2e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x2f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x30">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Master CRC_2" Index="#x7000" Sub="#x05">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x31">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x32">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x33">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x34">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x35">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x36">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x37">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x38">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x39">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x3a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x3b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x3c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x3d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x3e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x3f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__reserved" Index="#x7001" Sub="#x40">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Master CRC_3" Index="#x7000" Sub="#x06">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x41">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x42">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x43">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x44">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x45">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x46">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x47">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x48">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x49">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x4a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x4b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x4c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x4d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x4e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x4f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x50">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Master CRC_4" Index="#x7000" Sub="#x07">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x51">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x52">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x53">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x54">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x55">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x56">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x57">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x58">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x59">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x5a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x5b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x5c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x5d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x5e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x5f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__padding" Index="#x7001" Sub="#x60">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FSOE__Master CRC_5" Index="#x7000" Sub="#x08">
+						<Type>UINT</Type>
+					</Entry>
+					<Entry Name="FSOE__Master ConnID" Index="#x7000" Sub="#x02">
+						<Type>UINT</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="1 Slave Process Data TxPDO" Index="#x1a01" Flags="#x0091" SyncMan="3">
+					<Entry Name="LifebitSrv" Index="#x6d00" Sub="#x01">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ParamReady" Index="#x6d00" Sub="#x02">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="PowerStatus" Index="#x6d00" Sub="#x03">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter0" Index="#x6d00" Sub="#x04">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter1" Index="#x6d00" Sub="#x05">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter2" Index="#x6d00" Sub="#x06">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter3" Index="#x6d00" Sub="#x07">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter4" Index="#x6d00" Sub="#x08">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter5" Index="#x6d00" Sub="#x09">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter6" Index="#x6d00" Sub="#x0a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="oReserve0" Index="#x6d00" Sub="#x0b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="StateMachine0" Index="#x6d00" Sub="#x0c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="StateMachine1" Index="#x6d00" Sub="#x0d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="StateMachine2" Index="#x6d00" Sub="#x0e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ResetMotionACK" Index="#x6d00" Sub="#x0f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ResetErrorACK" Index="#x6d00" Sub="#x10">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ResetCommACK" Index="#x6d00" Sub="#x11">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="StartMoveACK" Index="#x6d00" Sub="#x12">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="StopMoveACK" Index="#x6d00" Sub="#x13">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="oReserve1" Index="#x6d00" Sub="#x14">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EstopStatus0" Index="#x6d00" Sub="#x15">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EstopStatus1" Index="#x6d00" Sub="#x16">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="DummyPlug" Index="#x6d00" Sub="#x17">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ShoulderRighty" Index="#x6d00" Sub="#x18">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ElbowPositive" Index="#x6d00" Sub="#x19">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="WristPositive" Index="#x6d00" Sub="#x1a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="wrkMode_Mode0" Index="#x6d00" Sub="#x1b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="wrkMode_Mode1" Index="#x6d00" Sub="#x1c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="wrkMode_Mode2" Index="#x6d00" Sub="#x1d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="wrkMode_Status0" Index="#x6d00" Sub="#x1e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="wrkMode_Status1" Index="#x6d00" Sub="#x1f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="wrkMode_Status2" Index="#x6d00" Sub="#x20">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut4.0" Index="#x6d00" Sub="#x21">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut4.1" Index="#x6d00" Sub="#x22">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut4.2" Index="#x6d00" Sub="#x23">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut4.3" Index="#x6d00" Sub="#x24">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut4.4" Index="#x6d00" Sub="#x25">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut4.5" Index="#x6d00" Sub="#x26">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut4.6" Index="#x6d00" Sub="#x27">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut4.7" Index="#x6d00" Sub="#x28">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut5.0" Index="#x6d00" Sub="#x29">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut5.1" Index="#x6d00" Sub="#x2a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut5.2" Index="#x6d00" Sub="#x2b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut5.3" Index="#x6d00" Sub="#x2c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut5.4" Index="#x6d00" Sub="#x2d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut5.5" Index="#x6d00" Sub="#x2e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut5.6" Index="#x6d00" Sub="#x2f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut5.7" Index="#x6d00" Sub="#x30">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dOut6.0" Index="#x6d00" Sub="#x31">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="RSITriggered" Index="#x6d00" Sub="#x32">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="RSITrigger0ACK" Index="#x6d00" Sub="#x33">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="RSITrigger1ACK" Index="#x6d00" Sub="#x34">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="UsrIn0" Index="#x6d00" Sub="#x35">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="UsrIn1" Index="#x6d00" Sub="#x36">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FastIn0" Index="#x6d00" Sub="#x37">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FastIn1" Index="#x6d00" Sub="#x38">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Din0" Index="#x6d00" Sub="#x39">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Din1" Index="#x6d00" Sub="#x3a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Din2" Index="#x6d00" Sub="#x3b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Din3" Index="#x6d00" Sub="#x3c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Din4" Index="#x6d00" Sub="#x3d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Din5" Index="#x6d00" Sub="#x3e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Din6" Index="#x6d00" Sub="#x3f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Din7" Index="#x6d00" Sub="#x40">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FunctionReply" Index="#x6a00" Sub="#x01">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="ServerErrors" Index="#x6a00" Sub="#x02">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="OverrideFbk" Index="#x6a00" Sub="#x03">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="Frame_ToolFbk" Index="#x6a00" Sub="#x04">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="armIO_Ain0" Index="#x6a00" Sub="#x05">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="armIO_Ain1" Index="#x6a00" Sub="#x06">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="armIO_Ain2" Index="#x6a00" Sub="#x07">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="armIO_Ain3" Index="#x6a00" Sub="#x08">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter0" Index="#x6a00" Sub="#x09">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter1" Index="#x6a00" Sub="#x0a">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter2" Index="#x6a00" Sub="#x0b">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter3" Index="#x6a00" Sub="#x0c">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter4" Index="#x6a00" Sub="#x0d">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="oReserve0" Index="#x6a00" Sub="#x0e">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="oReserve1" Index="#x6a00" Sub="#x0f">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="ctrlSpecific" Index="#x6a00" Sub="#x10">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="MotionID" Index="#x6a00" Sub="#x11">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="MotionProgress" Index="#x6a00" Sub="#x12">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="Robot_X" Index="#x6a00" Sub="#x13">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_Y" Index="#x6a00" Sub="#x14">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_Z" Index="#x6a00" Sub="#x15">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_RX" Index="#x6a00" Sub="#x16">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_RY" Index="#x6a00" Sub="#x17">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_RZ" Index="#x6a00" Sub="#x18">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_J1" Index="#x6a00" Sub="#x19">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_J2" Index="#x6a00" Sub="#x1a">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_J3" Index="#x6a00" Sub="#x1b">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_J4" Index="#x6a00" Sub="#x1c">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_J5" Index="#x6a00" Sub="#x1d">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_J6" Index="#x6a00" Sub="#x1e">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Velocity" Index="#x6a00" Sub="#x1f">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="oReserve2" Index="#x6a00" Sub="#x20">
+						<Type>DWORD</Type>
+					</Entry>
+					<Entry Name="FloatParameter0" Index="#x6a00" Sub="#x21">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter1" Index="#x6a00" Sub="#x22">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter2" Index="#x6a00" Sub="#x23">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter3" Index="#x6a00" Sub="#x24">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter4" Index="#x6a00" Sub="#x25">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter5" Index="#x6a00" Sub="#x26">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_Trq1" Index="#x6a00" Sub="#x27">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_Trq2" Index="#x6a00" Sub="#x28">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_Trq3" Index="#x6a00" Sub="#x29">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_Trq4" Index="#x6a00" Sub="#x2a">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_Trq5" Index="#x6a00" Sub="#x2b">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="Robot_Trq6" Index="#x6a00" Sub="#x2c">
+						<Type>REAL</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="1 Slave Process Data RxPDO" Index="#x1601" InOut="1" Flags="#x0091" SyncMan="2">
+					<Entry Name="LifebitPlc" Index="#x7d00" Sub="#x01">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="NewCommand" Index="#x7d00" Sub="#x02">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter0" Index="#x7d00" Sub="#x03">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter1" Index="#x7d00" Sub="#x04">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter2" Index="#x7d00" Sub="#x05">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter3" Index="#x7d00" Sub="#x06">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter4" Index="#x7d00" Sub="#x07">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter5" Index="#x7d00" Sub="#x08">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter6" Index="#x7d00" Sub="#x09">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter7" Index="#x7d00" Sub="#x0a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter8" Index="#x7d00" Sub="#x0b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="BitParameter9" Index="#x7d00" Sub="#x0c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EnablePower" Index="#x7d00" Sub="#x0d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="StartMove" Index="#x7d00" Sub="#x0e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ResetMotion" Index="#x7d00" Sub="#x0f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ResetError" Index="#x7d00" Sub="#x10">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ResetComm" Index="#x7d00" Sub="#x11">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="HwFaultACK" Index="#x7d00" Sub="#x12">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EstopACK" Index="#x7d00" Sub="#x13">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="Valve1" Index="#x7d00" Sub="#x14">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="Valve2" Index="#x7d00" Sub="#x15">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="Fout0" Index="#x7d00" Sub="#x16">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="Fout1" Index="#x7d00" Sub="#x17">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EnableVerbose" Index="#x7d00" Sub="#x18">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Dout0" Index="#x7d00" Sub="#x19">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Dout1" Index="#x7d00" Sub="#x1a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Dout2" Index="#x7d00" Sub="#x1b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Dout3" Index="#x7d00" Sub="#x1c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Dout4" Index="#x7d00" Sub="#x1d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Dout5" Index="#x7d00" Sub="#x1e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Dout6" Index="#x7d00" Sub="#x1f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="armIO_Dout7" Index="#x7d00" Sub="#x20">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="rmMoveHold" Index="#x7d00" Sub="#x21">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="rmEnablePower" Index="#x7d00" Sub="#x22">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="rmTestMode" Index="#x7d00" Sub="#x23">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="rmManualMode" Index="#x7d00" Sub="#x24">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="rmLocalMode" Index="#x7d00" Sub="#x25">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="rmRemoteMode" Index="#x7d00" Sub="#x26">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="DeadMan1" Index="#x7d00" Sub="#x27">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="DeadMan2" Index="#x7d00" Sub="#x28">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="Park1" Index="#x7d00" Sub="#x29">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="Park2" Index="#x7d00" Sub="#x2a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="JointMode" Index="#x7d00" Sub="#x2b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="FrameMode" Index="#x7d00" Sub="#x2c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ToolMode" Index="#x7d00" Sub="#x2d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="PointMode" Index="#x7d00" Sub="#x2e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ValidationKey" Index="#x7d00" Sub="#x2f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="SpeedLimit" Index="#x7d00" Sub="#x30">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="ReducedSafety" Index="#x7d00" Sub="#x31">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="StopMove" Index="#x7d00" Sub="#x32">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="RSITrigger0" Index="#x7d00" Sub="#x33">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="RSITrigger1" Index="#x7d00" Sub="#x34">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EnableValve1" Index="#x7d00" Sub="#x35">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="EnableValve2" Index="#x7d00" Sub="#x36">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="SafeRefSensor" Index="#x7d00" Sub="#x37">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn6.7" Index="#x7d00" Sub="#x38">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn7.0" Index="#x7d00" Sub="#x39">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn7.1" Index="#x7d00" Sub="#x3a">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn7.2" Index="#x7d00" Sub="#x3b">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn7.3" Index="#x7d00" Sub="#x3c">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn7.4" Index="#x7d00" Sub="#x3d">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn7.5" Index="#x7d00" Sub="#x3e">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn7.6" Index="#x7d00" Sub="#x3f">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="dIn7.7" Index="#x7d00" Sub="#x40">
+						<Type>BIT</Type>
+					</Entry>
+					<Entry Name="srvID_FctCode" Index="#x7a00" Sub="#x01">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="Frame_Tool" Index="#x7a00" Sub="#x02">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="OverrideCmd" Index="#x7a00" Sub="#x03">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="JogMove1" Index="#x7a00" Sub="#x04">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="JogMove2" Index="#x7a00" Sub="#x05">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="JogMove3" Index="#x7a00" Sub="#x06">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="JogMove4" Index="#x7a00" Sub="#x07">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="JogMove5" Index="#x7a00" Sub="#x08">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="JogMove6" Index="#x7a00" Sub="#x09">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="armIO_Aout0" Index="#x7a00" Sub="#x0a">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="armIO_Aout1" Index="#x7a00" Sub="#x0b">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="armIO_Aout2" Index="#x7a00" Sub="#x0c">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="armIO_Aout3" Index="#x7a00" Sub="#x0d">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter0" Index="#x7a00" Sub="#x0e">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter1" Index="#x7a00" Sub="#x0f">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter2" Index="#x7a00" Sub="#x10">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter3" Index="#x7a00" Sub="#x11">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter4" Index="#x7a00" Sub="#x12">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter5" Index="#x7a00" Sub="#x13">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter6" Index="#x7a00" Sub="#x14">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter7" Index="#x7a00" Sub="#x15">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="WordParameter8" Index="#x7a00" Sub="#x16">
+						<Type>INT</Type>
+					</Entry>
+					<Entry Name="ctrlSpecific" Index="#x7a00" Sub="#x17">
+						<Type>WORD</Type>
+					</Entry>
+					<Entry Name="FloatParameter0" Index="#x7a00" Sub="#x18">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter1" Index="#x7a00" Sub="#x19">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter2" Index="#x7a00" Sub="#x1a">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter3" Index="#x7a00" Sub="#x1b">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter4" Index="#x7a00" Sub="#x1c">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter5" Index="#x7a00" Sub="#x1d">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter6" Index="#x7a00" Sub="#x1e">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter7" Index="#x7a00" Sub="#x1f">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter8" Index="#x7a00" Sub="#x20">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter9" Index="#x7a00" Sub="#x21">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter10" Index="#x7a00" Sub="#x22">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter11" Index="#x7a00" Sub="#x23">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter12" Index="#x7a00" Sub="#x24">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter13" Index="#x7a00" Sub="#x25">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter14" Index="#x7a00" Sub="#x26">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter15" Index="#x7a00" Sub="#x27">
+						<Type>REAL</Type>
+					</Entry>
+					<Entry Name="FloatParameter16" Index="#x7a00" Sub="#x28">
+						<Type>REAL</Type>
+					</Entry>
+				</Pdo>
+				<Slot Name="Slot 1">
+					<SlotData>0000010001000000010000000000000000000000000000000000000000000000</SlotData>
+					<ModuleIdent>131072</ModuleIdent>
+					<Module Id="#x03090001" Type="FSOE" Class="#x00000002">
+						<Name>Module 1 (FSOE)</Name>
+						<ImageId>581</ImageId>
+						<ModuleData>840500000000020000000c000000000000000000000000000000000000000000</ModuleData>
+						<PdoIndex>6656</PdoIndex>
+						<PdoIndex>5632</PdoIndex>
+						<CoeProfile ProfileNo="#x00001389"/>
+					</Module>
+				</Slot>
+				<Slot Name="Slot 2">
+					<SlotData>0000010001000000010000000000000000000000000000000000000000000000</SlotData>
+					<ModuleIdent>131073</ModuleIdent>
+					<Module Id="#x03090002" Type="Slave Process Data Modules" Class="">
+						<Name>Module 2 (Slave Process Data Modules)</Name>
+						<ImageId>581</ImageId>
+						<ModuleData>8405000001000200000004000000000000000000000000000000000000000000</ModuleData>
+						<PdoIndex>6657</PdoIndex>
+						<PdoIndex>5633</PdoIndex>
+					</Module>
+				</Slot>
+			</EtherCAT>
+		</Box>
+		<EtherCAT DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="3" MaxSwitchFrames="140"/>
+	</Device>
+</TcSmItem>

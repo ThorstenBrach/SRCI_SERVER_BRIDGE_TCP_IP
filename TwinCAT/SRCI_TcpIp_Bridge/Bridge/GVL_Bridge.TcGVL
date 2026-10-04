@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
   <GVL Name="GVL_Bridge" Id="{c956e611-78a2-48e5-817f-e84790581c43}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 // -------------------------------------------------------------------------

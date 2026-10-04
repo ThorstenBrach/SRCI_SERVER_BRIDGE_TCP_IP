@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.10" ClassName="CDevEL6731Def" SubType="86">
+	<DataTypes>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-000400000010}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..15] OF WORD</Name>
+			<BitSize>256</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000004}">WORD</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>16</Elements>
+			</ArrayInfo>
+		</DataType>
+	</DataTypes>
+	<Device Id="1" Disabled="true" DevType="86" AmsPort="28673" AmsNetId="0.0.0.0.2.1" RemoteName="Device 1 (EL6731)">
+		<Name>__FILENAME__</Name>
+		<AddressInfo>
+			<Ecat>
+				<EtherCATDeviceId>0</EtherCATDeviceId>
+			</Ecat>
+		</AddressInfo>
+		<Image Id="1" AddrType="4" ImageType="3">
+			<Name>Image</Name>
+		</Image>
+		<Box Id="4" BoxType="1003">
+			<Name>PdpHimmelwerkAed</Name>
+			<Comment><![CDATA[Vendor:   Deutschmann Automation GmbH
+Revision: V1.4
+]]></Comment>
+			<ImageId>25</ImageId>
+			<Vars VarGrpType="1">
+				<Name>Inputs</Name>
+				<Var BoxStateVariable="true">
+					<Name>DpState</Name>
+					<Comment><![CDATA[0 = No error
+1 = Station deactivated
+2 = Station not exists
+3 = Master lock
+4 = Invalid slave response
+5 = Parameter fault
+6 = Not supported
+7 = Config fault
+8 = Station not ready
+9 = Static diagnosis
+10 = Diagnosis overflow
+11 = Physical fault
+12 = Data-Exchange left
+13 = Severe bus fault
+14 = Telegram fault
+15 = Station has no ressources
+16 = Service not activated
+17 = Unexpected telegram
+18 = Station ready
+31 = only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
+128 = slave, waiting for data transfer (or DP-Master in CLEAR-Mode)
+129	= slave, waiting for configuration
+130	= slave, waiting for parameter
+131	= slave, waiting for baudrate
+132	= slave, waiting for station no. from PLC
+]]></Comment>
+					<Type>USINT</Type>
+					<BitOffs>512</BitOffs>
+				</Var>
+				<Var BoxStateVariable="true">
+					<Name>ExtDiagFlag</Name>
+					<Comment><![CDATA[0 = Diagnosis Data unchanged
+1 = Diagnosis Data changed, use ADS-Read to get the data]]></Comment>
+					<Type>BIT</Type>
+					<BitOffs>537</BitOffs>
+				</Var>
+			</Vars>
+			<Profibus Model="UNIGATE IC - Profibus" StationNo="2" MinSlaveInterval="1" Ident="12824" Modular="1" MaxModule="16" MaxInputLen="244" MaxUserPrmData="237" MaxOutputLen="244" MaxDataLen="488" WatchDogTime="200" SupportFlags="1023" IoAccessDiv="1" WatchDog="true" SlaveParaSet="88000b0054000001" C2Settings="e803500000000000000000000000" PrmData="800000" CfgData="ffff" C2RWSupported="true" C2MaxChannelCnt="2" OwnPrmData="3" FixPresetModules="true">
+				<UserPrm Key="1">445056316d6f6465000000000000000000000000000000000000000000000000010000000700000000000000000000000100000001000000</UserPrm>
+				<PrmText Key="65537">enabled</PrmText>
+				<PrmText Key="65536">disabled</PrmText>
+				<UserPrmRef>0000000001000000</UserPrmRef>
+				<GsdModuleDesc Name="1 Byte I/O (konsistent)" CfgData="b0" Flags="65536"/>
+				<GsdModuleDesc Name="2 Byte I/O (konsistent)" CfgData="b1" Flags="131072"/>
+				<GsdModuleDesc Name="4 Byte I/O (konsistent)" CfgData="b3" Flags="196608"/>
+				<GsdModuleDesc Name="8 Byte I/O (konsistent)" CfgData="b7" Flags="262144"/>
+				<GsdModuleDesc Name="16 Byte I/O (konsistent)" CfgData="bf" Flags="327680"/>
+				<GsdModuleDesc Name="16 Worte I/O (konsistent)" CfgData="ff" Flags="393216"/>
+				<GsdModuleDesc Name="32 Worte I/O (konsistent)" CfgData="ffff" Flags="458752"/>
+				<GsdModuleDesc Name="64 Worte I/O (konsistent)" CfgData="c0ffff" Flags="524288"/>
+				<GsdModuleDesc Name="122 Worte In" CfgData="5f5f5f5f5f5f5f59" Flags="589824"/>
+				<GsdModuleDesc Name="122 Worte Out" CfgData="6f6f6f6f6f6f6f69" Flags="655360"/>
+				<GsdModuleDesc Name="1 Byte Inp. 1 Byte Outp. (kons.)" CfgData="90a0" Flags="720896"/>
+				<GsdModuleDesc Name="8 Byte Inp. 8 Byte Outp. (kons.)" CfgData="97a7" Flags="786432"/>
+				<GsdModuleDesc Name="16 Byte Inp. 16 Byte Outp.(kons)" CfgData="9faf" Flags="851968"/>
+				<GsdModuleDesc Name="16 Wort Inp. 16 Wort Outp.(kons)" CfgData="dfef" Flags="917504"/>
+				<GsdModule Id="1" In="64" Out="64" ModIdx="6" CfgData="ffff">
+					<Name>Module 07 (32 Words I/O (consistent))</Name>
+					<ImageId>24</ImageId>
+					<Vars VarGrpType="1">
+						<Name>Inputs</Name>
+						<Var>
+							<Name>32 Words I/O (consistent)_0_0</Name>
+							<Type GUID="{18071995-0000-0000-0000-000400000010}">ARRAY [0..15] OF WORD</Type>
+						</Var>
+						<Var>
+							<Name>32 Words I/O (consistent)_0_1</Name>
+							<Type GUID="{18071995-0000-0000-0000-000400000010}">ARRAY [0..15] OF WORD</Type>
+							<BitOffs>256</BitOffs>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2">
+						<Name>Outputs</Name>
+						<Var>
+							<Name>32 Words I/O (consistent)_1_0</Name>
+							<Type GUID="{18071995-0000-0000-0000-000400000010}">ARRAY [0..15] OF WORD</Type>
+						</Var>
+						<Var>
+							<Name>32 Words I/O (consistent)_1_1</Name>
+							<Type GUID="{18071995-0000-0000-0000-000400000010}">ARRAY [0..15] OF WORD</Type>
+							<BitOffs>256</BitOffs>
+						</Var>
+					</Vars>
+				</GsdModule>
+			</Profibus>
+		</Box>
+		<Profibus>
+			<Fcxxxx>
+				<DevSettings NetId="000000000201"/>
+			</Fcxxxx>
+			<BusParameter Ttr="35959"/>
+		</Profibus>
+	</Device>
+</TcSmItem>

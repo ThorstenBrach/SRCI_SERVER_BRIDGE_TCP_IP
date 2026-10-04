@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.16">
   <POU Name="FB_SrciTcpIpBridge" Id="{b47c3f17-51e1-4928-aee3-ee55735dcaae}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_SrciTcpIpBridge
 // -------------------------------------------------------------------------
@@ -469,13 +469,7 @@ END_VAR
   Connected := ( _step >= 25 ) AND ( _step < 70 );]]></ST>
     </Implementation>
     <LineIds Name="FB_SrciTcpIpBridge">
-      <LineId Id="3" Count="22" />
-      <LineId Id="463" Count="0" />
-      <LineId Id="26" Count="7" />
-      <LineId Id="464" Count="0" />
-      <LineId Id="34" Count="27" />
-      <LineId Id="465" Count="0" />
-      <LineId Id="62" Count="267" />
+      <LineId Id="3" Count="329" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

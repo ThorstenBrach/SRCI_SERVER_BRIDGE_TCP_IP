@@ -1,15 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4022.36">
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.78" TcVersionFixed="true">
 	<DataTypes>
-		<DataType>
-			<Name GUID="{534C1D0D-EDD1-33FC-3528-68B3DA4642CF}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..255] OF BYTE</Name>
-			<BitSize>2048</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>256</Elements>
-			</ArrayInfo>
-		</DataType>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-000300000100}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..255] OF BYTE</Name>
 			<BitSize>2048</BitSize>
@@ -18,9 +9,6 @@
 				<LBound>0</LBound>
 				<Elements>256</Elements>
 			</ArrayInfo>
-			<Hides>
-				<Hide GUID="{534C1D0D-EDD1-33FC-3528-68B3DA4642CF}"/>
-			</Hides>
 		</DataType>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-0003000000E2}" IecBaseType="true" AutoDeleteType="true">ARRAY [0..225] OF BYTE</Name>
@@ -99,68 +87,36 @@
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1001">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{6756B98E-C5D0-4AC0-80E2-204E763B53BA}" TargetNetId="5.70.91.223.1.1" Target64Bit="true" ShowHideConfigurations="#x3c7">
+	<Project ProjectGUID="{3699E187-1D79-4BF7-94C6-5ABA0353C450}" TargetNetId="5.70.91.223.1.1" Target64Bit="true" RelativeTargetNetId="true" ShowHideConfigurations="#x3c7">
 		<System>
-			<Settings MaxCpus="64" NonWinCpus="63"/>
 			<Licenses>
 				<Target>
 					<ManualSelect>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</ManualSelect>
-					<ManualSelect>{3EBB9639-5FF3-42B6-8847-35C70DC013C8}</ManualSelect>
 				</Target>
 			</Licenses>
 			<Tasks>
-				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="20" CycleTime="80000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
+				</Task>
+				<Task Id="5" Priority="1" CycleTime="80000" AmsPort="301">
+					<Name>Profinet</Name>
+					<Vars VarGrpType="1" InsertType="1">
+						<Name>Inputs</Name>
+					</Vars>
+					<Vars VarGrpType="2" InsertType="1">
+						<Name>Outputs</Name>
+					</Vars>
+					<Image Id="4" AddrType="1" ImageType="1">
+						<Name>Profinet-Image</Name>
+					</Image>
 				</Task>
 			</Tasks>
 		</System>
 		<Plc>
-			<Project GUID="{449C8D30-738A-4AB3-B2EB-E6EC437CFDBD}" Name="SRCI_TcpIp_Bridge" PrjFilePath="SRCI_TcpIp_Bridge\SRCI_TcpIp_Bridge.plcproj" TmcFilePath="SRCI_TcpIp_Bridge\SRCI_TcpIp_Bridge.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="SRCI_TcpIp_Bridge\SRCI_TcpIp_Bridge.tmc">
-					<Name>SRCI_TcpIp_Bridge Instance</Name>
-					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
-					<Vars VarGrpType="1">
-						<Name>PlcTask Inputs</Name>
-						<Var>
-							<Name>GVL_Bridge.EcMasterState</Name>
-							<Comment>
-								<![CDATA[ EcMaster State	]]>
-							</Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Bridge.EcSlaveState</Name>
-							<Comment>
-								<![CDATA[ EcSlave State	]]>
-							</Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_Bridge.RobotInData</Name>
-							<Comment>
-								<![CDATA[ Telegram RC -> PLC: PROFINET inputs of the robot (link to the input module(s) of the RC)]]>
-							</Comment>
-							<Type GUID="{534C1D0D-EDD1-33FC-3528-68B3DA4642CF}">ARRAY [0..255] OF BYTE</Type>
-						</Var>
-					</Vars>
-					<Vars VarGrpType="2">
-						<Name>PlcTask Outputs</Name>
-						<Var>
-							<Name>GVL_Bridge.RobotOutData</Name>
-							<Comment>
-								<![CDATA[ Telegram PLC -> RC: PROFINET outputs of the robot (link to the output module(s) of the RC)]]>
-							</Comment>
-							<Type GUID="{534C1D0D-EDD1-33FC-3528-68B3DA4642CF}">ARRAY [0..255] OF BYTE</Type>
-						</Var>
-					</Vars>
-					<TaskPouOids>
-						<TaskPouOid Prio="20" OTCID="#x08502001"/>
-					</TaskPouOids>
-				</Instance>
-			</Project>
+			<Project File="SRCI_TcpIp_Bridge.xti"/>
 		</Plc>
 		<Io>
-			<Device DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="5.70.91.223.2.1" RemoteName="Device 1 (EtherCAT)" Id="1">
+			<Device Id="2" DevType="111" DevFlags="#x0003" AmsPort="28674" AmsNetId="0.0.0.0.3.1" RemoteName="Device 1 (EtherCAT)" InfoImageId="3">
 				<Name>Device 1 (EtherCAT)</Name>
 				<AddressInfo>
 					<Ccat>
@@ -184,7 +140,7 @@
 						<TimeOffs>1024</TimeOffs>
 						<GpioSize>32</GpioSize>
 						<GpioOffs>768</GpioOffs>
-						<EepromSize>64</EepromSize>
+						<EepromSize>32</EepromSize>
 						<EepromOffs>512</EepromOffs>
 						<IntCtrlSize>16</IntCtrlSize>
 						<IntCtrlOffs>640</IntCtrlOffs>
@@ -195,17 +151,17 @@
 						</Identification>
 					</Ccat>
 				</AddressInfo>
-				<Image Id="1" AddrType="9" ImageType="3">
+				<Image Id="2" AddrType="9" ImageType="3">
 					<Name>Image</Name>
 				</Image>
-				<Box BoxType="9099" Id="1">
+				<Box Id="4" BoxType="9099">
 					<Name>Term 3 (EK1200)</Name>
 					<ImageId>1000</ImageId>
 					<EtherCAT PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04b02c52" RevisionNo="#x00001388" InfoDataState="false" PortPhys="49" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1200-5000 EtherCAT Power supply (2A E-Bus)" Desc="EK1200" PortABoxInfo="#x00ffffff"/>
-					<Box BoxType="9106" BoxFlags="#x00000020" Id="7">
+					<Box Id="7" BoxType="9106" BoxFlags="#x00000020">
 						<Name>Term 6 (EL6631)</Name>
 						<ImageId>124</ImageId>
-						<EtherCAT SlaveType="5" AdsServerAddress="0000000003010000" FixedAdsServerNetId="true" PdiType="#x0c08" ExecIo="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x19e73052" RevisionNo="#x00120000" InfoDataAddr="true" InfoDataNetId="true" OwnAddrExtern="true" TimeoutStateChange1="10000" TimeoutStateChange3="20000" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6631 PROFINET IO Controller" Desc="EL6631" PortABoxInfo="#x01000001">
+						<EtherCAT SlaveType="5" AdsServerAddress="0000000002010000" FixedAdsServerNetId="true" PdiType="#x0c08" ExecIo="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" FoeType="1" VendorId="#x00000002" ProductCode="#x19e73052" RevisionNo="#x00120000" InfoDataAddr="true" InfoDataNetId="true" OwnAddrExtern="true" TimeoutStateChange1="10000" TimeoutStateChange3="20000" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6631 PROFINET IO Controller" Desc="EL6631" PortABoxInfo="#x01000004">
 							<SyncMan>001000042600010001000000400000040004001026010000</SyncMan>
 							<SyncMan>001400042200010002000000400000040004001422010000</SyncMan>
 							<SyncMan>001806016400010003000000000000000000001864010000</SyncMan>
@@ -214,15 +170,15 @@
 							<Fmmu>0000000000000000002400010100000002000000000000000000000000000000</Fmmu>
 							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
 							<BootStrapData>0010000400140004</BootStrapData>
-							<Pdo Name="jaka_In" Index="#x1a00" Flags="#x0001" SyncMan="3">
-								<Entry Name="jaka_BoxState" Index="#x6000" Sub="#x01" Flags="#x00000100">
+							<Pdo Name="jaka_Inputs" Index="#x1a00" Flags="#x0001" SyncMan="3">
+								<Entry Name="jaka_PnIoBoxState" Index="#x6000" Sub="#x01" Flags="#x00000100">
 									<DefaultDataMask>1f001f00</DefaultDataMask>
 									<Type>UINT</Type>
 								</Entry>
-								<Entry Name="jaka_BoxDiag" Index="#x6000" Sub="#x02" Flags="#x00000100">
+								<Entry Name="jaka_PnIoBoxDiag" Index="#x6000" Sub="#x02" Flags="#x00000100">
 									<Type>UINT</Type>
 								</Entry>
-								<Entry Name="Input Data Submodule 1" Index="#x6001" Sub="#x01" Flags="#x00000100">
+								<Entry Name="jaka_SubmoduleData_1" Index="#x6001" Sub="#x01" Flags="#x00000100">
 									<Type GUID="{18071995-0000-0000-0000-000300000100}">ARRAY [0..255] OF BYTE</Type>
 								</Entry>
 								<Entry Name="SubIndex 002" Flags="#x00000100">
@@ -250,11 +206,11 @@
 									<Type GUID="{18071995-0000-0000-0000-000300000010}">ARRAY [0..15] OF BYTE</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="jaka_Out" Index="#x1600" InOut="1" Flags="#x0001" SyncMan="2">
-								<Entry Name="jaka_BoxCtrl" Index="#x7000" Sub="#x01" Flags="#x00000100">
+							<Pdo Name="jaka_Outputs" Index="#x1600" InOut="1" Flags="#x0001" SyncMan="2">
+								<Entry Name="jaka_PnIoBoxCtrl" Index="#x7000" Sub="#x01" Flags="#x00000100">
 									<Type>UINT</Type>
 								</Entry>
-								<Entry Name="Output Data Submodule 1" Index="#x7001" Sub="#x01" Flags="#x00000100">
+								<Entry Name="jaka_SubmoduleData_1" Index="#x7001" Sub="#x01" Flags="#x00000100">
 									<Type GUID="{18071995-0000-0000-0000-000300000100}">ARRAY [0..255] OF BYTE</Type>
 								</Entry>
 								<Entry Name="SubIndex 002" Flags="#x00000100">
@@ -282,36 +238,36 @@
 									<Type GUID="{18071995-0000-0000-0000-000300000010}">ARRAY [0..15] OF BYTE</Type>
 								</Entry>
 							</Pdo>
-							<Pdo Name="PnIoProtocolState" Index="#x1bfe" Flags="#x0001" SyncMan="3">
-								<Entry Name="DevState" Index="#xf100" Sub="#x01" Flags="#x00000100">
+							<Pdo Name="Device_1_ProtocolState" Index="#x1bfe" Flags="#x0001" SyncMan="3">
+								<Entry Name="Device_1_DevState" Index="#xf100" Sub="#x01" Flags="#x00000100">
 									<Type>UINT</Type>
 								</Entry>
-								<Entry Name="PnIoError" Index="#xf100" Sub="#x02" Flags="#x00000100">
+								<Entry Name="Device_1_PnIoError" Index="#xf100" Sub="#x02" Flags="#x00000100">
 									<Type>UINT</Type>
 								</Entry>
-								<Entry Name="PnIoDiag" Index="#xf100" Sub="#x03" Flags="#x00000100">
+								<Entry Name="Device_1_PnIoDiag" Index="#xf100" Sub="#x03" Flags="#x00000100">
+									<Type>UINT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Device_1_ProtocolCtrl" Index="#x17fe" InOut="1" Flags="#x0001" SyncMan="2">
+								<Entry Name="Device_1_DevCtrl" Index="#xf200" Sub="#x01" Flags="#x00000100">
 									<Type>UINT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="ECatState" Index="#x1bff" Flags="#x0001" SyncMan="3">
-								<Entry Name="ECatState" Index="#xf101" Sub="#x01" Flags="#x00000100">
-									<Type>UINT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="PnIoProtocolCtrl" Index="#x17fe" InOut="1" Flags="#x0001" SyncMan="2">
-								<Entry Name="DevCtrl" Index="#xf200" Sub="#x01" Flags="#x00000100">
+								<Entry Name="Device_1_ECatState" Index="#xf101" Sub="#x01" Flags="#x00000100">
 									<Type>UINT</Type>
 								</Entry>
 							</Pdo>
 							<Pdo Name="ECatCtrl" Index="#x17ff" InOut="1" Flags="#x0001" SyncMan="2">
-								<Entry Name="ECatCtrl" Index="#xf201" Sub="#x01" Flags="#x00000100">
+								<Entry Name="Device_1_ECatCtrl" Index="#xf201" Sub="#x01" Flags="#x00000100">
 									<Type>UINT</Type>
 								</Entry>
 							</Pdo>
 							<CoeProfile ProfileNo="5001"/>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="8">
+					<Box Id="8" BoxType="9099">
 						<Name>Term 7 (EL9011)</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x01000007"/>
@@ -319,29 +275,26 @@
 				</Box>
 				<EtherCAT/>
 			</Device>
-			<Device DevType="119" AmsPort="28674" AmsNetId="0.0.0.0.3.1" RemoteName="Device 2 (EL6631)" Id="2">
+			<Device Id="1" DevType="119" AmsPort="28673" AmsNetId="0.0.0.0.2.1" RemoteName="Device 2 (EL6631)">
 				<Name>Device 2 (EL6631)</Name>
-				<DevData>000000000700000000000000000000005465726d20362028454c363633312900000000000000000000000000000000000000000000000000000000000000000000000000000001000101a8c000ffffff000105209a5d040000800000000000000000000000000000000000000000000000000000000000000000000000000000</DevData>
-				<Image Id="3" AddrType="4" ImageType="3" SizeIn="262" SizeOut="268">
+				<DevData>000000000700000000000000803801005465726d20362028454c363633312900000000000000000000000000000000000000000000000000000000000000000000000000000001000101a8c000ffffff000105209a5d040000800000000000000000000000000000000000000000000000000000000000000000000000000000</DevData>
+				<Image Id="1" AddrType="4" ImageType="3" SizeIn="262" SizeOut="268">
 					<Name>Image</Name>
 				</Image>
-				<Box BoxType="9121" Id="3">
+				<Box Id="3" BoxType="9121">
 					<Name>jaka</Name>
-					<Comment>
-						<![CDATA[GSDML Name: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+					<Comment><![CDATA[GSDML Name: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
 Path: $(TWINCAT3DIR)Config\Io\Profinet\
 VendorName: JAKA
 OrderNumber: 00000000
 HW Release Version: 0021
-SW Release Version: V1.2.2]]>
-					</Comment>
+SW Release Version: V1.2.2]]></Comment>
 					<ImageId>121</ImageId>
 					<Vars VarGrpType="1">
 						<Name>Inputs</Name>
 						<Var>
 							<Name>PnIoBoxState</Name>
-							<Comment>
-								<![CDATA[0 = No error
+							<Comment><![CDATA[0 = No error
 1 = Profinet device state machine is in boot mode
 2 = Device not found
 3 = The stationname is not unique
@@ -359,14 +312,12 @@ SW Release Version: V1.2.2]]>
 15 = At least one InputCR is invalid, provider in stop or problemindicator is set
 16 = At least one OutputCR is invalid, provider in stop or problemindicator is set
 31 = Only for EtherCAT gateways: WC-State of cyclic EtherCAT frame is 1
-]]>
-							</Comment>
+]]></Comment>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>PnIoBoxDiag</Name>
-							<Comment>
-								<![CDATA[0x0000 = No diagnosis
+							<Comment><![CDATA[0x0000 = No diagnosis
 0x0001 = IOC-AR is not established
 0x0002 = IOC-AR is established
 0x0004 = IOC-AR is established but no application ready
@@ -378,8 +329,7 @@ SW Release Version: V1.2.2]]>
 0x1000 = At least one OutputCR is invalid
 0x2000 = At least one OutputCR Provider is in stop
 0x4000 = At least one OutputCR Problemindicator is set
-]]>
-							</Comment>
+]]></Comment>
 							<Type>UINT</Type>
 							<BitOffs>16</BitOffs>
 						</Var>
@@ -391,7 +341,7 @@ SW Release Version: V1.2.2]]>
 							<Type>UINT</Type>
 						</Var>
 					</Vars>
-					<Profinet DeviceId="5" VendorId="1560" FrameOffset="32768" IPAdd="c0a80102" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="13" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="32" MultipleWriteSupported="true" Phase="1" WatchdogFaktor="3" ReductionRatio="16" SendClockFaktor="32" MaxInputLen="1440" MaxOutputLen="1440" MaxSupportedRecordSize="4068" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" SavePnIoBoxValues="0500" BoxTypeInfo="JAKA PN-IO or SRCI Device" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.41-JAKA-JAKARobot-20231017.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\GSDML-002A-0005-DKSW_DAP2.bmp" MainFamily="I/O" ProductFamily="JAKARobot" OrderNr="00000000" DefaultDNSName="jaka" VendorName="JAKA" FamDescription="JAKA PN-IO or SRCI Device" SWVersion="V1.2.2" HWVersion="0021" AltLanguage="7">
+					<Profinet DeviceId="5" VendorId="1560" FrameOffset="32768" IPAdd="c0a80102" ProtocolType="3" BoxOnDeviceTyp="119" MaxPhysSlotNr="12" AvailableSlots="0..12" InstanceServerPort="50000" InstanceClientPort="50001" InstanceId="1" InstanceNumberOfARs="1" InstanceNumberOfAPIs="1" MinDeviceInterval="32" SavePnIoBoxValues="0500" MultipleWriteSupported="true" Phase="1" WatchdogFaktor="3" ReductionRatio="8" SendClockFaktor="32" MaxInputLen="1440" MaxOutputLen="1440" MaxSupportedRecordSize="4068" SendClockFactorData="2000" RedRatio="0100020004000800100020004000800000010002" BoxTypeInfo="JAKA PN-IO or SRCI Device" PDOmapping="1" OutputErrorBehavior="2" GSDMLPath="$(TWINCAT3DIR)Config\Io\Profinet\GSDML-V2.41-JAKA-JAKARobot-20231017.xml" ImagePath="C:\TwinCAT\3.1\Config\Io\Profinet\GSDML-002A-0005-DKSW_DAP2.bmp" MainFamily="I/O" ProductFamily="JAKARobot" OrderNr="00000000" DefaultDNSName="jaka" VendorName="JAKA" FamDescription="JAKA PN-IO or SRCI Device" GraphicFile="GSDML-002A-0005-DKSW_DAP2" SWVersion="V1.2.2" HWVersion="0021" AltLanguage="7">
 						<GsdmlChannelDiag TypeInfo="parameter assignment error" ErrorType="16"/>
 						<GsdmlChannelDiag TypeInfo="Power supply fault " ErrorType="17"/>
 						<GsdmlChannelDiag TypeInfo="fuse blown  " ErrorType="18"/>
@@ -423,19 +373,15 @@ SW Release Version: V1.2.2]]>
 							<ImageId>4</ImageId>
 							<Module Id="#x031d0001" DAP="true" ModuleIdentNumber="2" ModuleInfo="JAKA PN-IO or SRCI Device">
 								<Name>Term 1 (DAP Module)</Name>
-								<Comment>
-									<![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+								<Comment><![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
 Module Info: JAKA PN-IO or SRCI Device
-OrderNumber: 00000000]]>
-								</Comment>
+OrderNumber: 00000000]]></Comment>
 								<ImageId>182</ImageId>
 								<SubModule Id="#x031c0001" SubModuleIdentNumber="1" TypeOfSubModule="3" SubSlotNumber="1" IsFixSubmodule="true" SubModuleID="DAP 2" AddSubModFlags="60">
 									<Name>Subterm 1 (Jaka robot)</Name>
-									<Comment>
-										<![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+									<Comment><![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
 Submodule Info: JAKA PN-IO or SRCI Device
-]]>
-									</Comment>
+]]></Comment>
 									<ImageId>183</ImageId>
 									<Vars VarGrpType="1">
 										<Name>Inputs</Name>
@@ -446,10 +392,8 @@ Submodule Info: JAKA PN-IO or SRCI Device
 								</SubModule>
 								<SubModule Id="#x031c0002" SubModuleIdentNumber="2" TypeOfSubModule="1" SubSlotNumber="32768" IsFixSubmodule="true" SubModuleID="IDS_2I" InterfaceData="0100000000000000000000000000000000000000000098000200000000000000">
 									<Name>Subterm 2 (Interface)</Name>
-									<Comment>
-										<![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
-]]>
-									</Comment>
+									<Comment><![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+]]></Comment>
 									<ImageId>183</ImageId>
 									<Vars VarGrpType="1">
 										<Name>Inputs</Name>
@@ -460,10 +404,8 @@ Submodule Info: JAKA PN-IO or SRCI Device
 								</SubModule>
 								<SubModule Id="#x031c0003" SubModuleIdentNumber="3" TypeOfSubModule="2" SubSlotNumber="32769" IsFixSubmodule="true" SubModuleID="IDS_2P1" PortData="00000000000008000000000000000000000000000000000000000000">
 									<Name>Subterm 3 (Port 1)</Name>
-									<Comment>
-										<![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
-]]>
-									</Comment>
+									<Comment><![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+]]></Comment>
 									<ImageId>183</ImageId>
 									<Vars VarGrpType="1">
 										<Name>Inputs</Name>
@@ -473,21 +415,17 @@ Submodule Info: JAKA PN-IO or SRCI Device
 									</Vars>
 								</SubModule>
 							</Module>
-							<Module Id="#x031d0002" ModuleIdentNumber="256" ModuleInfo="256bytes data from robot to PLC" ModuleID="SRCI_256_R2P" DirectDeletable="true">
+							<Module Id="#x031d0002" ModuleIdentNumber="256" SlotNumber="11" ModuleInfo="256bytes data from robot to PLC" ModuleID="SRCI_256_R2P" DirectDeletable="true">
 								<Name>Term 2 (SRCI_256_R2P)</Name>
-								<Comment>
-									<![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+								<Comment><![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
 Module Info: 256bytes data from robot to PLC
-]]>
-								</Comment>
+]]></Comment>
 								<ImageId>182</ImageId>
 								<SubModule Id="#x031c0004" SubModuleIdentNumber="1" TypeOfSubModule="3" SubSlotNumber="1" IsFixSubmodule="true" SubModuleID="102">
 									<Name>Subterm 4 (SRCI_256_R2P)</Name>
-									<Comment>
-										<![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+									<Comment><![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
 Submodule Info: 256bytes data from robot to PLC
-]]>
-									</Comment>
+]]></Comment>
 									<ImageId>183</ImageId>
 									<Vars VarGrpType="1">
 										<Name>Inputs</Name>
@@ -502,21 +440,17 @@ Submodule Info: 256bytes data from robot to PLC
 									</Vars>
 								</SubModule>
 							</Module>
-							<Module Id="#x031d0003" ModuleIdentNumber="257" ModuleInfo="256bytes data from PLC to robot" ModuleID="SRCI_256_P2R" DirectDeletable="true">
+							<Module Id="#x031d0003" ModuleIdentNumber="257" SlotNumber="12" ModuleInfo="256bytes data from PLC to robot" ModuleID="SRCI_256_P2R" DirectDeletable="true">
 								<Name>Term 3 (SRCI_256_P2R)</Name>
-								<Comment>
-									<![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+								<Comment><![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
 Module Info: 256bytes data from PLC to robot
-]]>
-								</Comment>
+]]></Comment>
 								<ImageId>182</ImageId>
 								<SubModule Id="#x031c0005" SubModuleIdentNumber="1" TypeOfSubModule="3" SubSlotNumber="1" IsFixSubmodule="true" SubModuleID="103">
 									<Name>Subterm 5 (SRCI_256_P2R)</Name>
-									<Comment>
-										<![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
+									<Comment><![CDATA[GSDML: GSDML-V2.41-JAKA-JAKARobot-20231017.xml
 Submodule Info: 256bytes data from PLC to robot
-]]>
-									</Comment>
+]]></Comment>
 									<ImageId>183</ImageId>
 									<Vars VarGrpType="1">
 										<Name>Inputs</Name>
@@ -535,7 +469,7 @@ Submodule Info: 256bytes data from PLC to robot
 					</Profinet>
 				</Box>
 				<Profinet PLCPortNr="851" AddPortCount="1">
-					<Ethernet DeviceDesc="EL6631 PROFINET IO Controller" VirtualDeviceName="true" SpecialTask="true" TaskPort="301"/>
+					<Ethernet DeviceDesc="EL6631 PROFINET IO Controller" VirtualDeviceName="true" TaskPort="301"/>
 					<PNController ClientPort="60000" ServerPort="61000" VendorId="288" DeviceId="37" IPData="00000000c0a80101ffffff00c0a80101" SystemName="el6631-pncontroller" IRTSendClock="32">
 						<RTData CableLength="10"/>
 					</PNController>
@@ -544,15 +478,8 @@ Submodule Info: 256bytes data from PLC to robot
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030020"/>
-		<OwnerA Name="TIPC^SRCI_TcpIp_Bridge^SRCI_TcpIp_Bridge Instance">
-			<OwnerB Name="TIID^Device 1 (EtherCAT)">
-				<Link VarA="PlcTask Inputs^GVL_Bridge.EcMasterState" VarB="Inputs^DevState"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Device 2 (EL6631)^jaka">
-				<Link VarA="PlcTask Inputs^GVL_Bridge.RobotInData" VarB="API^Term 2 (SRCI_256_R2P)^Subterm 4 (SRCI_256_R2P)^Inputs^SRCI R2P"/>
-				<Link VarA="PlcTask Outputs^GVL_Bridge.RobotOutData" VarB="API^Term 3 (SRCI_256_P2R)^Subterm 5 (SRCI_256_P2R)^Outputs^SRCI P2R"/>
-			</OwnerB>
-		</OwnerA>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030030"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500820000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500831000403}" Id="#x02030020"/>
 	</Mappings>
 </TcSmProject>
