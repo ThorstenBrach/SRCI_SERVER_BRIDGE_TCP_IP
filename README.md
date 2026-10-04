@@ -23,8 +23,7 @@ Protocol (as in `SRCI_PY/docs/TRANSPORT.md`, the same one `TcpTransport` and the
 | Path | Content |
 |---|---|
 | [`TwinCAT/`](TwinCAT) | TwinCAT 3 solution `SRCI_TcpIp_Bridge.sln`: PLC project with `FB_SrciTcpIpBridge`, `GVL_Bridge`, `MAIN`, and the I/O configuration used with a JAKA MiniCobo (EL6631 PROFINET controller, GSDML of JAKA, modules `SRCI_256_R2P` / `SRCI_256_P2R`) |
-| [`Codesys/SRCI_TcpIp_Bridge.xml`](Codesys/SRCI_TcpIp_Bridge.xml) | CODESYS example as PLCopen XML: `FB_SrciTcpIpBridge` (library SysSocket), `GVL_Bridge`, `PLC_PRG` |
-| [`Codesys/Source/`](Codesys/Source) | the same CODESYS objects as ST text; `Codesys/st_to_plcopen.py` generates the XML from them |
+| [`Codesys/SRCI_TcpIp_Bridge.project`](Codesys/SRCI_TcpIp_Bridge.project) | CODESYS V3.5 project (created with SP22 Patch 2): `FB_SrciTcpIpBridge` with the method `FB_exit` (library SysSocket), `GVL_Bridge`, `PLC_PRG` |
 
 ## FB_SrciTcpIpBridge
 
@@ -79,23 +78,23 @@ Libraries: Tc2_Standard, Tc2_System, Tc2_TcpIp (the SRCI RobotLibrary is not nee
 
 ## CODESYS V3.5
 
-1. Create a standard project for your controller (e.g. CODESYS Control Win / RTE / for Linux, a
-   PLC with CODESYS runtime).
-2. **Import:** select the project (top node), then *Project → Import PLCopenXML…* →
-   `Codesys/SRCI_TcpIp_Bridge.xml`. The dialog shows the Application with `PLC_PRG`, `GVL_Bridge`
-   and the folder `Bridge` (`FB_SrciTcpIpBridge` with its method `FB_exit`); confirm to replace
-   the existing `PLC_PRG`.
-3. **Libraries:** add **SysSocket** in the library manager (`SysSocket Implementation`, CODESYS).
-   Standard (for `LEN`, `TON`) is part of every project.
-4. **Task:** call `PLC_PRG` in a cyclic task (e.g. 2 to 10 ms) – the same task that is the bus
+1. Open `Codesys/SRCI_TcpIp_Bridge.project` (CODESYS V3.5 SP22 Patch 2 or newer) and select your
+   device (*Update device* – e.g. CODESYS Control Win / RTE / for Linux, or a PLC with CODESYS
+   runtime). To use the bridge in an existing project, copy `FB_SrciTcpIpBridge` (folder `Bridge`)
+   and `GVL_Bridge` into it.
+2. **Libraries** (already in the project): **SysSocket** (`SysSocket Implementation`) for the
+   socket functions and **SysTypes2 Interfaces** for `RTS_IEC_HANDLE` / `RTS_IEC_RESULT` – SysSocket
+   uses it internally but does not publish its types. Standard (`LEN`, `TON`) is part of every
+   project.
+3. **Task:** call `PLC_PRG` in a cyclic task (e.g. 2 to 10 ms) – the same task that is the bus
    cycle task of the PROFINET controller, so the telegram goes out in the cycle in which it was
    received. The sockets are non-blocking: a request and its answer usually take one PLC cycle.
-5. **PROFINET:** add *Ethernet → PROFINET IO Controller* and the robot from its GSDML (device
+4. **PROFINET:** add *Ethernet → PROFINET IO Controller* and the robot from its GSDML (device
    repository) with the modules of the SRCI telegrams. In the *I/O Mapping* of the modules map the
    channel of the input module to `GVL_Bridge.RobotInData` and the output module to
    `GVL_Bridge.RobotOutData` (*Map to existing variable*). If the module data are shown as
    single bytes, map them element by element in the order of the telegram.
-6. **Network:** Python connects to an IP address of the controller on a normal network adapter;
+5. **Network:** Python connects to an IP address of the controller on a normal network adapter;
    allow TCP port 5000 in the firewall of the controller.
 
 ## Python side
@@ -128,7 +127,7 @@ receives its own telegram.
 | Example | Status |
 |---|---|
 | TwinCAT 3 | runs with a JAKA MiniCobo (SRCI 1.1, profile Core) and SRCI_PY |
-| CODESYS | **not compiled and not tested yet.** Written for the library SysSocket (functions `SysSockCreate`, `SysSockBind`, `SysSockListen`, `SysSockAccept`, `SysSockRecv`, `SysSockSend`, `SysSockClose`, non-blocking via `SysSockIoctl(SOCKET_FIONBIO)`) after the CODESYS online help. Please report what had to be changed |
+| CODESYS | project for CODESYS V3.5 SP22 with the library SysSocket (non-blocking sockets via `SysSockIoctl(SOCKET_FIONBIO)`); **not tested with a robot yet** – please report your results |
 
 ## Safety
 
