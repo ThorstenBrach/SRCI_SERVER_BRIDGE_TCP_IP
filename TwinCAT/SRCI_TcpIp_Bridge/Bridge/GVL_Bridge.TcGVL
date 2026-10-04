@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <GVL Name="GVL_Bridge" Id="{c956e611-78a2-48e5-817f-e84790581c43}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+// -------------------------------------------------------------------------
+//  SRCI Robot Library
+// -------------------------------------------------------------------------
+//
+//  Object:      GVL_Bridge
+//  Author:      Thorsten Brach
+//  Date:        2026-10-02
+//
+//  Description:
+//    PROFINET process data of the robot and the TCP/IP bridge instance.
+//
+//  Copyright:
+//    (C) 2026 Thorsten Brach. All rights reserved
+//             Licensed under the MIT License.
+//
+//  Disclaimer:
+//    This project is provided without any guarantee and can be used for
+//    private and commercial purposes. Any use is at the user's
+//    own risk and responsibility.
+//
+// -------------------------------------------------------------------------
+VAR_GLOBAL
+  /// EcMaster State	
+  EcMasterState AT %I*: UINT;
+  /// EcSlave State	
+  EcSlaveState  AT %I*: UINT;
+  /// Telegram RC -> PLC: PROFINET inputs of the robot (link to the input module(s) of the RC)
+  RobotInData  AT %I* : ARRAY[0..255] OF BYTE;
+  /// Telegram PLC -> RC: PROFINET outputs of the robot (link to the output module(s) of the RC)
+  RobotOutData AT %Q* : ARRAY[0..255] OF BYTE;
+  /// TCP/IP server for the SRCI client in Python
+  Bridge              : FB_SrciTcpIpBridge;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

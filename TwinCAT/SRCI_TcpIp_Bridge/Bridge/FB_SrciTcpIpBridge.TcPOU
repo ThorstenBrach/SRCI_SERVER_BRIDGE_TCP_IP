@@ -1,0 +1,482 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="FB_SrciTcpIpBridge" Id="{b47c3f17-51e1-4928-aee3-ee55735dcaae}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SrciTcpIpBridge
+// -------------------------------------------------------------------------
+//  SRCI Robot Library
+// -------------------------------------------------------------------------
+//
+//  Object:      FB_SrciTcpIpBridge
+//  Author:      Thorsten Brach
+//  Date:        2026-10-02
+//
+//  Description:
+//    The PLC as TCP/IP bridge between the SRCI client in Python (SRCI_PY, TcpTransport)
+//    and a robot controller on PROFINET. Protocol (SRCI_PY docs/TRANSPORT.md):
+//      - the PLC is the TCP server, Python the TCP client (one client at a time,
+//        a new client replaces the old one);
+//      - raw SRCI telegrams without framing, fixed lengths;
+//      - lockstep: Python sends one telegram PLC -> RC (LengthPlcToRob bytes), the
+//        bridge copies it into the PROFINET outputs (RobotOutData) and answers with
+//        exactly one telegram RC -> PLC (LengthRobToPlc bytes) from the PROFINET
+//        inputs (RobotInData). The bridge never sends on its own.
+//    Python is the cycle master; the SRCI logic (MC_RobotTaskFB, commands) runs in
+//    Python, the PLC only forwards the bytes.
+//    When the client disconnects, the last telegram stays in the outputs: its
+//    LifeSign does not change any more and the RC leaves the initialized state
+//    (LifeSign timeout), as with a stopped PLC.
+//
+//    AnswerDelayCycles = 0: the answer is sent in the PLC cycle in which the request
+//    was complete (inputs of this cycle). 1..n: the answer is sent n cycles later,
+//    i.e. after the outputs went out over PROFINET (newer inputs, longer round trip).
+//
+//    Needs TF6310 (library Tc2_TcpIp). Addresses of the ARRAY[*] parameters only via
+//    the first element (ST_Coding_Rules 6a).
+//
+//  Copyright:
+//    (C) 2026 Thorsten Brach. All rights reserved
+//             Licensed under the MIT License.
+//
+//  Disclaimer:
+//    This project is provided without any guarantee and can be used for
+//    private and commercial purposes. Any use is at the user's
+//    own risk and responsibility.
+//
+// -------------------------------------------------------------------------
+VAR_INPUT
+  /// Open the server and forward telegrams (FALSE: close client and server)
+  Enable            : BOOL;
+  /// Local IP address to listen on ('' = all network adapters)
+  LocalHost         : T_IPv4Addr := '';
+  /// TCP port of the server
+  LocalPort         : UDINT := 5000;
+  /// Telegram length PLC -> RC [bytes] (request of Python, TelegramLengthPlcToRob)
+  LengthPlcToRob    : UDINT := 256;
+  /// Telegram length RC -> PLC [bytes] (answer to Python, TelegramLengthRobToPlc)
+  LengthRobToPlc    : UDINT := 256;
+  /// PLC cycles between a complete request and the answer (0 = same cycle)
+  AnswerDelayCycles : UDINT := 0;
+  /// Close all sockets of this PLC runtime at the first start (sockets left open by a download / reset)
+  CloseAllOnStart   : BOOL := TRUE;
+  /// Wait time before a new attempt after an error of the server (listen/accept)
+  RetryDelay        : TIME := T#2S;
+END_VAR
+VAR_IN_OUT
+  /// PROFINET outputs of the robot: telegram PLC -> RC
+  RobotOutData      : ARRAY[*] OF BYTE;
+  /// PROFINET inputs of the robot: telegram RC -> PLC
+  RobotInData       : ARRAY[*] OF BYTE;
+END_VAR
+VAR_OUTPUT
+  /// Server is listening for a client
+  Listening         : BOOL;
+  /// A client is connected
+  Connected         : BOOL;
+  /// A request was copied into RobotOutData in this call
+  NewTelegram       : BOOL;
+  /// Error of the last connection / server attempt (reset with the next successful connection)
+  Error             : BOOL;
+  /// Error ID of Tc2_TcpIp (e.g. 16#8000 + Windows socket error), 16#FFFD RobotOutData/RobotInData
+  /// smaller than LengthPlcToRob/LengthRobToPlc or larger than the internal buffers, 16#FFFE invalid step
+  ErrorID           : UDINT;
+  /// Step in which the error occurred
+  ErrorStep         : DINT;
+  /// Number of forwarded telegrams since the start
+  Telegrams         : UDINT;
+  /// Number of accepted clients since the start
+  Connections       : UDINT;
+  /// Time between the last two requests (cycle time of the Python client)
+  Interval          : TIME;
+  /// Longest time between two requests of the current client (check against the LifeSign timeout)
+  MaxInterval       : TIME;
+END_VAR
+VAR
+  /// Step of the state machine
+ _step              : DINT;
+  /// Sockets of the runtime were closed at the start
+ _initDone          : BOOL;
+  /// Close all sockets of the runtime
+ _closeAll          : FB_SocketCloseAll;
+  /// Open the server port
+ _listen            : FB_SocketListen;
+  /// Accept the first client
+ _accept            : FB_SocketAccept;
+  /// Accept a new client while one is connected (it replaces the old one)
+ _acceptNew         : FB_SocketAccept;
+  /// Receive (a part of) a request
+ _receive           : FB_SocketReceive;
+  /// Send the answer
+ _send              : FB_SocketSend;
+  /// Close the client socket or the listener
+ _close             : FB_SocketClose;
+  /// Handle of the listener
+ _listener          : T_HSOCKET;
+  /// Handle of the connected client
+ _socket            : T_HSOCKET;
+  /// Handle of a new client that replaces the connected one
+ _newSocket         : T_HSOCKET;
+  /// A new client is waiting
+ _newClient         : BOOL;
+  /// Receive buffer of the request (it can arrive in several parts)
+ _rxBuffer          : ARRAY[0..1023] OF BYTE;
+  /// Bytes of the current request received so far
+ _rxCount           : UDINT;
+  /// Answer (copy of RobotInData when it is sent)
+ _txBuffer          : ARRAY[0..1023] OF BYTE;
+  /// PLC cycles waited for the answer
+ _delayCount        : UDINT;
+  /// Time stamp of the last complete request
+ _lastRequest       : TIME;
+  /// The client is closed because the server is disabled
+ _shutdown          : BOOL;
+  /// Wait time after an error of the server
+ _timer             : TON;
+  /// Loop counter: several steps can be done in one call
+ _loop              : DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[NewTelegram := FALSE;
+
+  // disabled -> close the client (if connected), then the listener
+  IF ( NOT Enable )
+  THEN
+    IF (( _step >= 25 ) AND
+        ( _step <  70 ))
+    THEN
+      _shutdown := TRUE;
+      _step     := 70;
+    ELSIF (( _step >= 20 ) AND
+           ( _step <  25 ))
+    THEN
+      _step := 80;
+    END_IF
+  END_IF
+
+  // a new client replaces the connected one (e.g. Python reconnects after a timeout,
+  // or the old connection is half open after a cable break)
+  IF (( _step >= 30 ) AND
+      ( _step <  70 ))
+  THEN
+    _acceptNew( bExecute := TRUE );
+
+    IF ( NOT _acceptNew.bBusy )
+    THEN
+      IF (( _acceptNew.bAccepted ) AND
+          ( NOT _acceptNew.bError ))
+      THEN
+        _newSocket := _acceptNew.hSocket;
+        _newClient := TRUE;
+      END_IF
+
+      // poll again
+      _acceptNew( bExecute := FALSE );
+      _acceptNew( sSrvNetId := '',
+                  hListener := _listener,
+                  bExecute  := NOT _newClient,
+                  tTimeout  := T#5S );
+    END_IF
+  END_IF
+
+  // several steps in one call (e.g. request complete -> send the answer at once)
+  FOR _loop := 1 TO 4
+  DO
+    CASE _step OF
+
+      0: // idle - start the server ?
+         // the telegram buffers must hold the telegram lengths (MEMCPY through pointers)
+         IF (( DINT_TO_UDINT(UPPER_BOUND(RobotOutData, 1) - LOWER_BOUND(RobotOutData, 1) + 1) < LengthPlcToRob ) OR
+             ( DINT_TO_UDINT(UPPER_BOUND(RobotInData,  1) - LOWER_BOUND(RobotInData,  1) + 1) < LengthRobToPlc ) OR
+             ( LengthPlcToRob > SIZEOF(_rxBuffer)                                                            ) OR
+             ( LengthRobToPlc > SIZEOF(_txBuffer)                                                            ) OR
+             ( LengthPlcToRob = 0                                                                            ) OR
+             ( LengthRobToPlc = 0                                                                            ))
+         THEN
+           ErrorID   := 16#FFFD;
+           ErrorStep := _step;
+           Error     := TRUE;
+           EXIT;
+         END_IF
+
+         IF ( NOT Enable )
+         THEN
+           EXIT;
+         ELSIF (( CloseAllOnStart ) AND
+                ( NOT _initDone   ))
+         THEN
+           _closeAll( bExecute := FALSE );
+           _closeAll( sSrvNetId := '',
+                      bExecute  := TRUE,
+                      tTimeout  := T#5S );
+           _step := 1;
+           EXIT;
+         ELSE
+           _listen( bExecute := FALSE );
+           _step := 10;
+         END_IF
+
+      1: // all sockets of the runtime closed ?
+         _closeAll( bExecute := TRUE );
+         IF ( _closeAll.bBusy )
+         THEN
+           EXIT;
+         END_IF
+         // an error here is not critical (no socket open)
+         _initDone := TRUE;
+         _step     := 0;
+
+      10: // open the server port
+          _listen( sSrvNetId   := '',
+                   sLocalHost  := LocalHost,
+                   nLocalPort  := LocalPort,
+                   bExecute    := TRUE,
+                   tTimeout    := T#5S );
+          IF ( _listen.bBusy )
+          THEN
+            EXIT;
+          ELSIF ( _listen.bError )
+          THEN
+            ErrorID   := _listen.nErrId;
+            ErrorStep := _step;
+            Error     := TRUE;
+            _step     := 90;
+          ELSE
+            _listener := _listen.hListener;
+            _step     := 20;
+          END_IF
+
+      20: // wait for a client (poll)
+          _accept( bExecute := FALSE );
+          _accept( sSrvNetId := '',
+                   hListener := _listener,
+                   bExecute  := TRUE,
+                   tTimeout  := T#5S );
+          _step := 21;
+          EXIT;
+
+      21: // client accepted ?
+          _accept( bExecute := TRUE );
+          IF ( _accept.bBusy )
+          THEN
+            EXIT;
+          ELSIF ( _accept.bError )
+          THEN
+            ErrorID   := _accept.nErrId;
+            ErrorStep := _step;
+            Error     := TRUE;
+            _step     := 80;
+          ELSIF ( _accept.bAccepted )
+          THEN
+            _socket := _accept.hSocket;
+            _step   := 25;
+          ELSE
+            // no client yet
+            _step := 20;
+            EXIT;
+          END_IF
+
+      25: // new connection
+          Error       := FALSE;
+          ErrorID     := 0;
+          ErrorStep   := 0;
+          Connections := Connections + 1;
+          MaxInterval  := T#0S;
+          Interval     := T#0S;
+          _lastRequest := TIME();
+          _rxCount     := 0;
+          _newClient   := FALSE;
+          _acceptNew( bExecute := FALSE );
+          _acceptNew( sSrvNetId := '',
+                      hListener := _listener,
+                      bExecute  := TRUE,
+                      tTimeout  := T#5S );
+          _step := 30;
+
+      30: // receive the request (possibly in several parts)
+          IF ( _newClient )
+          THEN
+            // the new client replaces the connected one
+            _step := 70;
+          ELSE
+            _receive( bExecute := FALSE );
+            _receive( sSrvNetId := '',
+                      hSocket   := _socket,
+                      cbLen     := LengthPlcToRob - _rxCount,
+                      pDest     := ADR(_rxBuffer) + _rxCount,
+                      bExecute  := TRUE,
+                      tTimeout  := T#5S );
+            _step := 31;
+            EXIT;
+          END_IF
+
+      31: // part of the request received ?
+          _receive( bExecute := TRUE );
+          IF ( _receive.bBusy )
+          THEN
+            EXIT;
+          ELSIF ( _receive.bError )
+          THEN
+            // e.g. the client closed the connection
+            ErrorID   := _receive.nErrId;
+            ErrorStep := _step;
+            Error     := TRUE;
+            _step     := 70;
+          ELSIF ( _receive.nRecBytes = 0 )
+          THEN
+            // nothing received yet -> poll again in the next cycle
+            _step := 30;
+            EXIT;
+          ELSIF ( _rxCount + _receive.nRecBytes < LengthPlcToRob )
+          THEN
+            _rxCount := _rxCount + _receive.nRecBytes;
+            _step    := 30;
+            EXIT;
+          ELSE
+            // complete request -> PROFINET outputs
+            MEMCPY( destAddr := ADR(RobotOutData[LOWER_BOUND(RobotOutData, 1)]),
+                    srcAddr  := ADR(_rxBuffer),
+                    n        := LengthPlcToRob );
+            NewTelegram  := TRUE;
+            Telegrams    := Telegrams + 1;
+            Interval     := TIME() - _lastRequest;
+            _lastRequest := TIME();
+            IF ( Interval > MaxInterval )
+            THEN
+              MaxInterval := Interval;
+            END_IF
+            _rxCount    := 0;
+            _delayCount := 0;
+            _step       := 35;
+          END_IF
+
+      35: // wait AnswerDelayCycles PLC cycles (outputs go out, inputs come in)
+          IF ( _delayCount < AnswerDelayCycles )
+          THEN
+            _delayCount := _delayCount + 1;
+            EXIT;
+          END_IF
+          // answer = PROFINET inputs of this cycle
+          MEMCPY( destAddr := ADR(_txBuffer),
+                  srcAddr  := ADR(RobotInData[LOWER_BOUND(RobotInData, 1)]),
+                  n        := LengthRobToPlc );
+          _send( bExecute := FALSE );
+          _send( sSrvNetId := '',
+                 hSocket   := _socket,
+                 cbLen     := LengthRobToPlc,
+                 pSrc      := ADR(_txBuffer),
+                 bExecute  := TRUE,
+                 tTimeout  := T#5S );
+          _step := 41;
+          EXIT;
+
+      41: // answer sent ?
+          _send( bExecute := TRUE );
+          IF ( _send.bBusy )
+          THEN
+            EXIT;
+          ELSIF ( _send.bError )
+          THEN
+            ErrorID   := _send.nErrId;
+            ErrorStep := _step;
+            Error     := TRUE;
+            _step     := 70;
+          ELSE
+            // next request
+            _step := 30;
+          END_IF
+
+      70: // close the client socket
+          _close( bExecute := FALSE );
+          _close( sSrvNetId := '',
+                  hSocket   := _socket,
+                  bExecute  := TRUE,
+                  tTimeout  := T#5S );
+          _step := 71;
+          EXIT;
+
+      71: // client socket closed ?
+          _close( bExecute := TRUE );
+          IF ( _close.bBusy )
+          THEN
+            EXIT;
+          END_IF
+          _rxCount := 0;
+          IF ( _shutdown OR NOT Enable )
+          THEN
+            // close the server as well (the new client too, if one was accepted)
+            IF ( _newClient )
+            THEN
+              _socket    := _newSocket;
+              _newClient := FALSE;
+              _step      := 70;
+            ELSE
+              _step := 80;
+            END_IF
+          ELSIF ( _newClient )
+          THEN
+            // continue with the new client
+            _socket := _newSocket;
+            _step   := 25;
+          ELSE
+            // wait for the next client
+            _step := 20;
+          END_IF
+
+      80: // close the listener
+          _close( bExecute := FALSE );
+          _close( sSrvNetId := '',
+                  hSocket   := _listener,
+                  bExecute  := TRUE,
+                  tTimeout  := T#5S );
+          _step := 81;
+          EXIT;
+
+      81: // listener closed ?
+          _close( bExecute := TRUE );
+          IF ( _close.bBusy )
+          THEN
+            EXIT;
+          END_IF
+          _shutdown := FALSE;
+          IF ( Error AND Enable )
+          THEN
+            _step := 90;
+          ELSE
+            _step := 0;
+          END_IF
+
+      90: // error of the server: wait before the next attempt
+          _timer( IN := TRUE, PT := RetryDelay );
+          IF (( NOT Enable ) OR
+              ( _timer.Q   ))
+          THEN
+            _timer( IN := FALSE );
+            _step := 0;
+          ELSE
+            EXIT;
+          END_IF
+
+    ELSE
+      ErrorID   := 16#FFFE;
+      ErrorStep := _step;
+      Error     := TRUE;
+     _step      := 70;
+    END_CASE
+  END_FOR
+
+  // states derived from the step, so they cannot differ from it
+  Listening := ( _step >= 20 ) AND ( _step < 80 );
+  Connected := ( _step >= 25 ) AND ( _step < 70 );]]></ST>
+    </Implementation>
+    <LineIds Name="FB_SrciTcpIpBridge">
+      <LineId Id="3" Count="22" />
+      <LineId Id="463" Count="0" />
+      <LineId Id="26" Count="7" />
+      <LineId Id="464" Count="0" />
+      <LineId Id="34" Count="27" />
+      <LineId Id="465" Count="0" />
+      <LineId Id="62" Count="267" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

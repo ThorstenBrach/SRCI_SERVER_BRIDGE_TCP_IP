@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.18">
+  <POU Name="MAIN" Id="{e55712e5-8240-4cbf-ba90-d068d2957bfe}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+// -------------------------------------------------------------------------
+//  SRCI Robot Library
+// -------------------------------------------------------------------------
+//
+//  Object:      MAIN
+//  Author:      Thorsten Brach
+//  Date:        2026-10-02
+//
+//  Description:
+//    Starts the TCP/IP server of the SRCI bridge. Python connects with
+//      TcpTransport('<IP of the PLC>', 5000, 256, 256)
+//    The PLC task should run with 1..2 ms (shorter than the cycle of the
+//    Python client, 10 ms), see README.md.
+//
+//  Copyright:
+//    (C) 2026 Thorsten Brach. All rights reserved
+//             Licensed under the MIT License.
+//
+//  Disclaimer:
+//    This project is provided without any guarantee and can be used for
+//    private and commercial purposes. Any use is at the user's
+//    own risk and responsibility.
+//
+// -------------------------------------------------------------------------
+VAR
+  /// Enable the bridge
+  Enable : BOOL := TRUE;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[  GVL_Bridge.Bridge( Enable            := Enable,
+                     LocalHost         := '',
+                     LocalPort         := 5000,
+                     LengthPlcToRob    := 256,
+                     LengthRobToPlc    := 256,
+                     AnswerDelayCycles := 0,
+                     RobotOutData      := GVL_Bridge.RobotOutData,
+                     RobotInData       := GVL_Bridge.RobotInData );]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="3" Count="6" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

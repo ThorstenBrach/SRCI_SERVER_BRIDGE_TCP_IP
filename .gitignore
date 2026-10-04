@@ -1,0 +1,27 @@
+# TwinCAT: build output, caches and local files (generated when the project is built / opened)
+_Boot/
+_CompileInfo/
+_Libraries/
+.vs/
+*.~u
+*.bak
+*.tpy
+*.tclrs
+*.compileinfo
+*.suo
+*.user
+LineIDs.dbg*
+
+# CODESYS: local files of a project (the example is the PLCopen XML in Codesys/)
+*.opt
+*.bootinfo
+*.precompilecache
+*.compiled-library
+*.backup
+*.project.~u
+
+# Python
+__pycache__/
+
+# logs
+*.log
