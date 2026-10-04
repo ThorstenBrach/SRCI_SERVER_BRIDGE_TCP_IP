@@ -24,7 +24,7 @@ XHTML = '<xhtml xmlns="http://www.w3.org/1999/xhtml">'
 NS = "http://www.3s-software.com/plcopenxml/"
 ELEMENTARY = {
     "BOOL", "BYTE", "WORD", "DWORD", "LWORD", "SINT", "INT", "DINT", "LINT", "USINT", "UINT", "UDINT",
-    "ULINT", "REAL", "LREAL", "TIME", "LTIME", "DATE", "TIME_OF_DAY", "DATE_AND_TIME", "STRING", "WSTRING",
+    "ULINT", "REAL", "LREAL", "TIME", "LTIME", "DATE", "TOD", "DT",
 }  # fmt: skip
 SECTIONS = {
     "VAR_INPUT": "inputVars", "VAR_OUTPUT": "outputVars", "VAR_IN_OUT": "inOutVars", "VAR": "localVars",
@@ -43,8 +43,10 @@ def indent(text: str, prefix: str) -> str:
 
 def type_xml(text: str) -> str:
     t = text.strip()
-    if m := re.fullmatch(r"(?i)STRING\s*\(\s*(\d+)\s*\)", t):
-        return f'<string length="{m.group(1)}" />'
+    if m := re.fullmatch(r"(?i)(W?STRING)\s*\(\s*(\d+)\s*\)", t):
+        return f'<{m.group(1).lower()} length="{m.group(2)}" />'
+    if t.upper() in ("STRING", "WSTRING"):
+        return f"<{t.lower()} />"
     if m := re.fullmatch(r"(?i)ARRAY\s*\[\s*([^\].]+)\s*\.\.\s*([^\]]+?)\s*\]\s*OF\s+(.+)", t):
         return (f'<array>\n  <dimension lower="{m.group(1)}" upper="{m.group(2)}" />\n  <baseType>\n'
                 f"{indent(type_xml(m.group(3)), '    ')}\n  </baseType>\n</array>")  # fmt: skip

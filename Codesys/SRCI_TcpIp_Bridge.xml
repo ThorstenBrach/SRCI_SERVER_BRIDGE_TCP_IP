@@ -289,7 +289,7 @@
             </variable>
             <variable name="_host">
               <type>
-                <STRING />
+                <string />
               </type>
               <documentation>
                 <xhtml xmlns="http://www.w3.org/1999/xhtml"> Copy of LocalHost for SysSockInetAddr (REFERENCE TO STRING)</xhtml>

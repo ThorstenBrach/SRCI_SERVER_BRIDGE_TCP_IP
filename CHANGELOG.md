@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
    `SRCI_TcpIp_Bridge`
  - TwinCAT: the reference to TcUnit was removed (not used)
 
+### Fixed
+ - CODESYS: the PLCopen XML is valid against the PLCopen schema TC6 XML V2.01 (a plain `STRING`
+   was written as `<STRING />` instead of `<string />`)
+
 ### Tested with
  - TwinCAT 3 + JAKA MiniCobo (controller 1.7.1, SRCI 1.1, profile Core) and SRCI_PY
  - CODESYS: not compiled and not tested yet
