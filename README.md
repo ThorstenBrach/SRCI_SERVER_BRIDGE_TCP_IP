@@ -142,3 +142,7 @@ real robot.
 MIT, see [LICENSE](LICENSE). The software is based on the SRCI technology of PROFIBUS and PROFINET
 International (PI) but is not an official publication of PI. It is provided without any guarantee;
 any use is at your own risk.
+
+---
+
+[![Donate with PayPal](https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)](https://www.paypal.com/donate/?hosted_button_id=ERN6VH9WA95J6)
