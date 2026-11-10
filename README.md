@@ -1,5 +1,7 @@
 # SRCI_TcpIp_Bridge – PLC as TCP/IP bridge for SRCI
 
+**Documentation in the wiki:** [TCP/IP bridge](https://github.com/ThorstenBrach/SRCI/wiki/Bridge-TcpIp) · [SRCI user manual](https://github.com/ThorstenBrach/SRCI/wiki)
+
 The PLC forwards SRCI telegrams between the Python client
 [SRCI_PY](https://github.com/ThorstenBrach/SRCI_CLIENT_PY) and a robot on PROFINET. The whole SRCI
 logic – RobotTask, commands, sequences – runs in Python; the PLC only copies bytes. This repository
