@@ -1,0 +1,37 @@
+name: release
+
+# A tag vX.Y.Z creates a GitHub release with the TwinCAT and the CODESYS example as zip files.
+# Before tagging: a section "## [X.Y.Z]" in CHANGELOG.md.
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Release notes from CHANGELOG.md
+        run: |
+          python3 - "${{ github.ref_name }}" > release-notes.md <<'PYEOF'
+          import re, sys
+          version = sys.argv[1].lstrip("v")
+          text = open("CHANGELOG.md", encoding="utf-8").read()
+          m = re.search(rf"^## \[{re.escape(version)}\][^\n]*\n(.*?)(?=^## \[|\Z)", text, re.M | re.S)
+          if not m:
+              sys.exit(f"no section ## [{version}] in CHANGELOG.md")
+          print(m.group(1).strip())
+          PYEOF
+      - name: Zip the examples
+        run: |
+          zip -qr "SRCI_TcpIp_Bridge-TwinCAT-${{ github.ref_name }}.zip" TwinCAT README.md LICENSE CHANGELOG.md
+          zip -qr "SRCI_TcpIp_Bridge-CODESYS-${{ github.ref_name }}.zip" Codesys README.md LICENSE CHANGELOG.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          body_path: release-notes.md
+          files: "*.zip"
